@@ -1,0 +1,65 @@
+<!--index.wxml-->
+<!-- <view class="container">
+  <view  bindtap="bindViewTap" class="userinfo">
+    <image class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
+    <text class="userinfo-nickname">{{userInfo.nickName}}</text>
+  </view>
+  <view class="usermotto">
+    <text class="user-motto">{{motto}}</text>
+  </view>
+</view> -->
+
+<view class="page me">
+  <view class="userinfo">
+    <image class="userinfo-avatar" src="{{userInfo.image}}" background-size="cover"></image>
+    <text class="userinfo-nickname">{{userInfo.nickname}}</text>
+  
+  </view>
+  <navigator url="/pages/login/login" wx:if="{{islogin == false}}">
+    <view class="view-cell view-cell-line">
+      <view class="view-cell-primary">
+        <button class="view-name" open-type="getUserInfo" bindgetuserinfo="onGotUserInfo">登录</button>
+      </view>
+      <view class="view-cell-arrow"></view>
+    </view>
+  </navigator>
+  <view class="view-cell view-cell-line" wx:if="{{islogin == true}}">
+    <view class="view-cell-primary">
+
+      <text class="view-name" style="color:green">已登录</text>
+    </view>
+  </view>
+
+  <view class="about" wx:if="{{islogin == false}}">
+    <view class="about-item">
+      <text class="about-item-title">关于萌萌元</text>
+      <text class="about-item-content">创建于2018.6.2日。致力于打造练习口语的平台。目前不开放注册功能，仅开放向四眼契实验中学学生开放。请没有账号的同学，向管理员索取账号。在登录后使用可使用全部功能。</text>
+    </view>
+
+    <view class="about-item">
+      <text class="about-item-title">当前版本</text>
+      <text class="about-item-content ">V1.0.0 Beta</text>
+    </view>
+  </view>
+  <view class="about" wx:if="{{islogin == true}}">
+    <view class="about-item">
+      <text class="about-item-title" wx:if="{{userInfo.nickname}}">欢迎你，{{userInfo.nickname}}
+   </text>
+      <text class="about-item-title" wx:elif="{{userInfo.loginname}}">欢迎你，{{userInfo.loginname}}
+     </text>
+     <text  class="about-item-title" wx:if="{{userInfo.lastLoginTime!=null}}"> 
+      你最近的登录时间是{{userInfo.lastLoginTime}}</text>
+      <text class="about-item-title" wx:if="{{userInfo.phonenum}}">你当前的手机号为{{userInfo.phonenum}}</text>
+      <view class="view-cell view-cell-line" wx:if="{{islogin == true}}">
+        <view class="view-cell-primary">
+          <text class="about-item-title" wx:if="!{{userInfo.phonenum}}">
+        点击绑定手机号</text ></view></view>
+           <view class="view-cell view-cell-line" wx:if="{{islogin == true}}">
+   
+        <view class="view-cell-primary"> <text class="about-item-title" bindtap='changePassword'>点击修改密码</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+</view>

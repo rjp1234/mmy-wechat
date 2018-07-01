@@ -1,0 +1,92 @@
+<!-- detail -->
+<page class="page detail">
+  <view class="detail-post-meta">
+    <view class="detail-post-avatar">
+      <image class="detail-post-avatar-img" mode="scaleToFill" src="{{ detail.image }}" />
+    </view>
+    <view class="detail-post-info">
+      <view class="detail-post-lession-name">
+        <text>{{ detail.name}}</text>
+        <image wx:if="{{detail.readState&&detail.reciteState}}" class="image-complete" src='/images/icon/complete.jpg'></image>
+      </view>
+      <view class="detail-post-time">{{ detail.issueTime }}</view>
+    </view>
+  </view>
+
+  <view class="detail-post-content" hidden='{{contentHidden}}'>
+    <view class="detail-post-title">
+      课文内容:
+    </view>
+    <text class="content-info">{{ detail.content }}</text>
+  </view>
+  <view class="detail-post-content" hidden='{{exampleHidden}}'>
+    <view class="detail-post-title">
+      示范录音：
+    </view>
+    <!--audio start-->
+    <audio src="{{detail.exampleUrl}}" id="myAudio1" bindtimeupdate="updata1"></audio>
+    <view class="progress">
+      <text>{{result1}}</text>
+      <slider bindchange="sliderChange1" step="2" value="{{currentTime1}}" max="{{duration1}}" class="slider" selected-color="#ff5e5e" />
+      <text>{{times1}}</text>
+      <view class="audioOpen">
+        <image class="audioOpen" bindtap="audioPlay1" wx:if="{{!isOpen1}}" src="../../images/icon/voice1.jpg" />
+        <image class="audioOpen" src="../../images/icon/voice2.jpg" bindtap="audioPause1" wx:if="{{isOpen1}}" />
+      </view>
+
+    </view>
+
+    <!--audio end-->
+
+    <!-- 
+ <audio poster="{{detail.image}}" name="{{detail.name}}" author="{{author}}" src="{{detail.exampleUrl}}" id="example" controls bindplay="funplay" bindpause="funpause" bindtimeupdate="funtimeupdate" bindended="funended" binderror="funerror" action="{{action}}"></audio> -->
+
+  </view>
+  <view class="detail-post-content" hidden="{{tContentHidden}}">
+    <view class="detail-post-title">
+      老师的话:
+    </view>
+    <text class="content-info">{{ detail.tContent }}</text>
+  </view>
+  <view class="detail-post-content" hidden="{{tStudioHidden}}">
+    <view class="detail-post-title">
+      老师的话:
+    </view>
+    <!--audio start-->
+    <audio src="{{detail.tStudioUrl}}" id="myAudio2" bindtimeupdate="updata2"></audio>
+    <view class="progress">
+      <text>{{result2}}</text>
+      <slider bindchange="sliderChange2" step="2" value="{{currentTime2}}" max="{{duration2}}" class="slider" selected-color="#ff5e5e" />
+      <text>{{times2}}</text>
+
+    </view>
+    <view class="audioOpen">
+      <image class="audioOpen" bindtap="audioPlay2" wx:if="{{!isOpen2}}" src="../../images/icon/voice1.jpg" />
+
+      <image class="audioOpen" src="../../images/icon/voice2.jpg" bindtap="audioPause2" wx:if="{{isOpen2}}" />
+    </view>
+    <!--audio end-->
+  </view>
+  <view class="button-select">
+    <!-- <button wx:if="{{!detail.readState}}" class='btn' size="mini" hidden='{{readHidden}}' bindtap='read'>{{read}}</button> -->
+    <button wx:if="{{!detail.reciteState}}" class='btn' size="mini" hidden='{{reciteHidden}}' bindtap='recite'>{{recite}}</button>
+    <button wx:if="{{detail.reciteState}}" bindtap='back'>返回列表</button>
+  </view>
+
+
+  <view class="button-image" hidden='{{studioHidden}}'>
+    <image src='{{studio_logo}}' style='width:80px;height:80px' bindtap='studioRecord'></image>
+
+    <image wx:if="{{studioSrc.length>0}}" src='{{voice_logo}}' style='width:80px;height:80px' bindtap='voicePlay'></image>
+  </view>
+  <modal title="消息" confirm-text="提交" cancel-text="取消" hidden="{{modalHidden}}" bindconfirm="upload" bindcancel="cancelUpload" wx:if="{{studioSrc.length>0}}">
+    确认提交当前的录音？
+  </modal>
+  <modal title="消息" confirm-text="留下来" cancel-text="跳转" hidden="{{completeHidden}}" bindconfirm="stayPage" bindcancel="jump">
+    恭喜你成功完成了这篇课文，继续留下来阅读还是跳转去寻找下一篇文章?
+  </modal>
+
+  <loading hidden="{{hidden}}">
+    加载中...
+  </loading>
+</page>
