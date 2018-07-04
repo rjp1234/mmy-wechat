@@ -3,7 +3,7 @@
 var app = getApp()
 Page({
   data: {
-    motto: 'Hello ! WelCome to WxApp',
+
     islogin: false,
     userInfo: null
   },
@@ -40,6 +40,15 @@ Page({
   ,
   onGotUserInfo: function (e) {
     wx.setStorageSync("userInfo", e.detail.userInfo) ;
+  },
+  logout:function(){
+    var that=this;
+    wx.removeStorageSync("mUserInfo");
+    that.setData({
+      islogin: false,
+      userInfo: null
+    })
+    
   }
 
  
