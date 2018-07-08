@@ -2,14 +2,16 @@
 // api 路径
 var HOST = 'http://127.0.0.1:8090/mengmengyuan/';
 //用户模块
-var user_module = 'user'
+var user_module = 'user';
 var login = HOST + user_module + '/login';
-var changePassword = HOST + user_module + "/changePassword"
+var changePassword = HOST + user_module + "/changePassword";
+var userDetail = HOST + user_module +"/userDetail";
+
 //课文模块
-var lession_module = 'lession'
+var lession_module = 'lession';
 var lessionList = HOST + lession_module + '/lessionList';
 var lessionForm = HOST + lession_module + '/lessionForm';
-// 
+// 录音模块
 var studio_module="studio";
 var studioUpload = HOST + studio_module +"/uploadStudio";
 
@@ -62,6 +64,7 @@ module.exports = {
   changePassword: changePassword,
   lessionForm: lessionForm,
   studioUpload: studioUpload,
+  userDetail: userDetail,
   // METHOD
   fetchGet: fetchGet,
   fetchPost: fetchPost

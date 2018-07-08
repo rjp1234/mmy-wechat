@@ -1,0 +1,57 @@
+<import src="../../common/nav.wxml"/><!-- detail -->
+<page class="page detail">
+ <template  is="nav" data="{{ navList, activeIndex }}"/>
+  <view class="detail-post-meta">
+    <view class="detail-post-avatar">
+      <image class="image-complete" src="/images/icon/score.jpg" />
+    </view>
+    <view class="detail-post-info">
+      <view class="detail-post-lession-name">
+        <text>{{detail.name }}的成绩单</text>
+        
+      </view>
+      <view class="detail-post-time">最后一次打分截止于{{detail.lastPointTime}}</view>
+    </view>
+  </view>
+
+  <view class="detail-post-content">
+    <view class="detail-post-comment">
+      <text style='color:red'>
+        {{comment}}
+      </text>
+    </view>
+  </view>
+  <view class="detail-post-content">
+    <view class="detail-post-title">
+      完成次数:
+      <text style='color:{{completed}}'>{{ detail.completeNum}}/{{detail.issueNum}}</text>
+    </view>
+  </view>
+  <view class="detail-post-content">
+    <view class="detail-post-title">
+      总得分: {{ detail.sumPoint }}
+    </view>
+  </view>
+  <view class="detail-post-content">
+    <view class="detail-post-title">
+      当前排名:{{detail.ranking+1}}
+    </view>
+  </view>
+  <view class="detail-post-content">
+    <view class="detail-post-title">
+      平均分: {{ detail.avgPoint }}
+    </view>
+  </view>
+  <view class="detail-post-content">
+    <view class="detail-post-title">
+      分数分布
+    </view>
+    <view class="chartcontain">
+      <ec-canvas id="mychart-dom-pie" canvas-id="mychart-pie" ec="{{ ec }}"></ec-canvas>
+    </view>
+  </view>
+
+  <loading hidden="{{hidden}}">
+    加载中...
+  </loading>
+</page>

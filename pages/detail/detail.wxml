@@ -70,8 +70,8 @@
   <view class="button-select">
     <!-- <button wx:if="{{!detail.readState}}" class='btn' size="mini" hidden='{{readHidden}}' bindtap='read'>{{read}}</button> -->
     <button wx:if="{{!detail.reciteState}}" class='btn' size="mini" hidden='{{reciteHidden}}' bindtap='recite'>{{recite}}</button>
-    <button wx:if="{{detail.reciteState}}" bindtap=''>查看名次</button>
-    <button wx:if="{{detail.reciteState}}" bindtap='back'>返回列表</button>
+    <button class='btn' wx:if="{{detail.reciteState}}" bindtap='' size="mini">查看名次</button>   
+    <button class='btn' wx:if="{{detail.reciteState}}" bindtap='back' size="mini">返回列表</button>
   </view>
 
 

@@ -2,8 +2,11 @@ var Api = require('../../utils/api.js');
 var util = require('../../utils/util.js');
 var app = getApp()
 var navList = [{
-
-  title: "全部"
+  id:"lession",
+  title: "课文列表"
+},{
+  id:"score",
+  title:"我的成绩"
 }
 
 ];
@@ -113,18 +116,22 @@ Page({
         })
 
       }
-
     })
 
+  },
+  onTapTag:function(e){
+    console.log(e);
+    var id=e.target.id;
+    if("lession"==id){
+      wx.switchTab({
+        url: '../topics/topics',
+      })
 
-
-
-
-
-
-
-
-
+    }else if ('score'==id){
+      wx.navigateTo({
+        url: '/pages/user/userRankDetail/userRankDetail'
+      })
+    }
 
 
   },
