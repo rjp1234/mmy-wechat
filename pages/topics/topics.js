@@ -7,6 +7,10 @@ var navList = [{
 },{
   id:"score",
   title:"我的成绩"
+},{
+  id:'record',
+  title:"我的记录"
+
 }
 
 ];
@@ -131,6 +135,11 @@ Page({
       wx.navigateTo({
         url: '/pages/user/userRankDetail/userRankDetail'
       })
+    }else if('record'==id){
+      wx.navigateTo({
+        url: '/pages/user/pointrecord/pointrecord'
+      })
+
     }
 
 

@@ -14,7 +14,7 @@ var lessionForm = HOST + lession_module + '/lessionForm';
 // 录音模块
 var studio_module="studio";
 var studioUpload = HOST + studio_module +"/uploadStudio";
-
+var userStudioPointRecordList = HOST + studio_module +"/userStudioPointRecordList"
 // get请求方法
 function fetchGet(url, callback) {
   // return callback(null, top250)
@@ -65,6 +65,7 @@ module.exports = {
   lessionForm: lessionForm,
   studioUpload: studioUpload,
   userDetail: userDetail,
+  userStudioPointRecordList: userStudioPointRecordList,
   // METHOD
   fetchGet: fetchGet,
   fetchPost: fetchPost

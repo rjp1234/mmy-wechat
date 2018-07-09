@@ -76,6 +76,7 @@ Page({
   onReady() {
     // 获取组件
     this.ecComponent = this.selectComponent('#mychart-dom-pie');
+    this.fetchData();
   },
   init: function() {
     var that = this;
@@ -108,7 +109,7 @@ Page({
         url: '../../index/index'
       })
     }
-    that.fetchData();
+  
   },
 
   onLoad: function(options) {

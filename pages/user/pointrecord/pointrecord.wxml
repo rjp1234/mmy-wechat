@@ -1,0 +1,27 @@
+<import src="../../common/nav.wxml"/>
+<view class="page topics">
+  <template  is="nav" data="{{ navList, activeIndex }}"/>
+   <scroll-view class="scroll-posts-list" scroll-y="true" style="height:100%" bindscrolltolower="lower">
+    <view class="postslist">
+      <block wx:for="{{recordList}}" wx:key="">
+        <view class="posts-list">
+          <navigator url="/pages/detail/detail?id={{item.id}}">
+            <view class="posts-list-info" index="{{index}}">
+              <view class="item-box">
+                <view class="posts-title">
+                  <text >{{item.name}}</text>
+                </view>
+                <view style='color:{{item.comment==null?"grey":"black"}}' class="comment">{{item.comment==null?'暂时还没有成绩，耐心等待老师批改哟':item.comment}}</view>
+
+                <view class="item-bottom">
+                    <text >提交时间:{{item.createTime}}</text>
+                </view>
+                <image wx:if="{{item.pointTime!=null &&item.pointTime!='' }}" class="completeImg" src="../../../images/icon/{{item.point}}.jpg" ></image>
+              </view>
+            </view>
+          </navigator>
+        </view>
+      </block>
+    </view>
+  </scroll-view>
+</view>

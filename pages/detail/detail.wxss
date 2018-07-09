@@ -94,7 +94,7 @@
    padding: 20px;
   color: #6c6c6c;
   word-wrap: break-word;
-  font-size: 15px
+  font-size: 20px;
 }
 
 .detail-post-comment{
