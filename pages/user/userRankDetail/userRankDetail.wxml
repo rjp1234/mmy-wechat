@@ -10,13 +10,13 @@
         <text>{{detail.name }}的成绩单</text>
         
       </view>
-      <view class="detail-post-time">最后一次打分截止于{{detail.lastPointTime}}</view>
+      <view class="detail-post-time" wx:if="{{detail.lastPointTime}}">最后一次打分截止于{{detail.lastPointTime}}</view>
     </view>
   </view>
 
   <view class="detail-post-content">
     <view class="detail-post-comment">
-      <text style='color:red'>
+      <text style='color:green'>
         {{comment}}
       </text>
     </view>

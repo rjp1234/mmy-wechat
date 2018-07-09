@@ -7,15 +7,16 @@ const recorderManager = wx.getRecorderManager()
 const innerAudioContext = wx.createInnerAudioContext()
 //var tempFilePath = null;
 var navList = [{
-  id: "lession",
-  title: "课文列表"
-}, {
-  id: "score",
-  title: "我的成绩"
-}
+    id: "lession",
+    title: "课文列表"
+  }, {
+    id: "score",
+    title: "我的成绩"
+  }
 
 ];
-function setOption(chart,detail) {
+
+function setOption(chart, detail) {
 
 
   var option = {
@@ -30,7 +31,7 @@ function setOption(chart,detail) {
       type: 'pie',
       center: ['50%', '50%'],
       radius: [0, '60%'],
-     
+
       data: [{
         value: detail.aNum,
         name: 'A-' + detail.aNum
@@ -76,8 +77,8 @@ Page({
     // 获取组件
     this.ecComponent = this.selectComponent('#mychart-dom-pie');
   },
-  init:function() {
-    var that=this;
+  init: function() {
+    var that = this;
     that.ecComponent.init((canvas, width, height) => {
       // 获取组件的 canvas、width、height 后的回调函数
       // 在这里初始化图表
@@ -90,7 +91,7 @@ Page({
       // 将图表实例绑定到 this 上，可以在其他成员函数（如 dispose）中访问
       that.chart = chart;
 
-  
+
 
       // 注意这里一定要返回 chart 实例，否则会影响事件处理等
       return chart;
@@ -100,7 +101,7 @@ Page({
   },
 
   onShow: function() {
-    var that=this;
+    var that = this;
     var mUserInfo = wx.getStorageSync("mUserInfo");
     if (!mUserInfo) {
       wx.switchTab({
@@ -119,7 +120,7 @@ Page({
     });
 
   },
-  onTapTag: function (e) {
+  onTapTag: function(e) {
     console.log(e);
     var id = e.target.id;
     if ('lession' == id) {
@@ -199,6 +200,10 @@ Page({
         } else {
           comment = "获得奠基人成就"
         }
+        if (!detail.lastPointTime) {
+          comment = "你还未上传录音或首次上传录音还未批改O(∩_∩)O"
+        }
+
         that.setData({
           comment: comment
         });
@@ -209,7 +214,7 @@ Page({
             width: width,
             height: height
           });
-          setOption(chart,that.data.detail);
+          setOption(chart, that.data.detail);
 
           // 将图表实例绑定到 this 上，可以在其他成员函数（如 dispose）中访问
           that.chart = chart;
