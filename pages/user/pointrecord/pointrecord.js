@@ -2,16 +2,16 @@ var Api = require('../../../utils/api.js');
 var util = require('../../../utils/util.js');
 var app = getApp()
 var navList = [{
-  id: "lession",
-  title: "课文列表"
-}, {
-  id: "score",
-  title: "我的成绩"
-}, {
-  id: 'record',
-  title: "我的记录"
+    id: "lession",
+    title: "课文列表"
+  }, {
+    id: "score",
+    title: "我的成绩"
+  }, {
+    id: 'record',
+    title: "我的记录"
 
-}
+  }
 
 ];
 // pages/user/studiopointrecord/studiopointrecord.js
@@ -23,68 +23,74 @@ Page({
   data: {
     activeIndex: 2,
     navList: navList,
-    size:20,
-    time:'',
-    recordList:[]
+    size: 20,
+    time: '',
+    recordList: []
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
-   this.getData();
+  onLoad: function(options) {
+    this.getData();
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
-  
+  onReady: function() {
+
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
-   
+  onShow: function() {
+
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function () {
-  
+  onHide: function() {
+
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function () {
-  
+  onUnload: function() {
+
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function () {
-  
+  onPullDownRefresh: function() {
+    var that=this;
+    that.setData({
+      time:"",
+      recordList:[]
+    });
+    that.getData();
+
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function () {
-  
+  onReachBottom: function() {
+
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
-  
+  onShareAppMessage: function() {
+
   },
   //获取文章列表数据
-  getData: function () {
+  getData: function() {
     //获取前，先进行accToken和userId的判断，若为空，跳转登陆页面
     var mUserInfo = wx.getStorageSync("mUserInfo");
     app.globalData.userInfo = mUserInfo;
@@ -105,7 +111,7 @@ Page({
       return;
     }
 
-    var dataparam = 'userId=' + mUserInfo.userId + '&accToken=' + mUserInfo.accToken + '&size=' + that.data.pageNo + "&time=" + that.data.time;
+    var dataparam = 'userId=' + mUserInfo.userId + '&accToken=' + mUserInfo.accToken + '&size=' + that.data.size + "&time=" + that.data.time;
     Api.fetchPost(ApiUrl, dataparam, (err, res) => {
 
       if (res.code == '0') {
@@ -115,9 +121,10 @@ Page({
         that.setData({
           recordList: recordList,
           //隐藏转圈圈
-          hidden: true
+          hidden: true,
+          time: res.data.time
         });
-        console.log(that.data.recordList)
+
 
       } else {
         //请求失败，可能是用户登陆失效，跳转用户登陆界面
@@ -129,7 +136,7 @@ Page({
     })
 
   },
-  onTapTag: function (e) {
+  onTapTag: function(e) {
     console.log(e);
     var id = e.target.id;
     if ("lession" == id) {
@@ -147,6 +154,11 @@ Page({
       })
 
     }
+
+
+  },
+  lower:function(){
+    this.getData();
 
 
   }
