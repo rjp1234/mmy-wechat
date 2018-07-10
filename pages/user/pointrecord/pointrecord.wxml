@@ -5,7 +5,7 @@
     <view class="postslist">
       <block wx:for="{{recordList}}" wx:key="">
         <view class="posts-list">
-          <navigator url="/pages/detail/detail?id={{item.id}}">
+          <navigator url="/pages/user/lessionrankdetail/lessionrankdetail?lessionId={{item.lessionId}}">
             <view class="posts-list-info" index="{{index}}">
               <view class="item-box">
                 <view class="posts-title">

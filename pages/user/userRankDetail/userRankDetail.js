@@ -106,19 +106,20 @@ Page({
     var mUserInfo = wx.getStorageSync("mUserInfo");
     if (!mUserInfo) {
       wx.switchTab({
-        url: '../../index/index'
+        url: '/pages/index/index'
       })
+    }else{
+      this.setData({
+
+        user: user
+
+      });
     }
   
   },
 
   onLoad: function(options) {
-    var user = wx.getStorageSync("mUserInfo");
-    this.setData({
-
-      user: user
-
-    });
+   
 
   },
   onTapTag: function(e) {

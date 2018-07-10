@@ -1,0 +1,39 @@
+<!-- detail -->
+<page class="page detail">
+  <view class="detail-post-meta">
+    <view class="detail-post-avatar">
+      <image class="detail-post-avatar-img" mode="scaleToFill" src="{{ lession.image }}" />
+    </view>
+    <view class="detail-post-info">
+      <view class="detail-post-lession-name">
+        <text>{{ lession.name}}</text>
+        <image wx:if="{{detail.readState&&detail.reciteState}}" class="image-complete" src='/images/icon/complete.jpg'></image>
+      </view>
+      <view class="detail-post-time">{{ lession.issueTime }}</view>
+    </view>
+  </view>
+
+  <view class="detail-post-content" wx:if="{{studio.pointer !=null}}">
+    <view class="detail-post-title" >
+      你本次的排名为:第{{ studio.ranking+1 }}名
+    </view>
+  
+  </view>
+<view class="detail-post-content" wx:if="{{studio.pointer ==null}}">
+    <view class="detail-post-wait" >
+      你的成绩还在批改中哟，请稍作等待
+    </view>
+  </view>
+
+
+
+  <view class="button-select">
+    <button class='btn' wx:if="{{detail.reciteState}}" bindtap='back' size="mini">返回我的记录</button>
+  </view>
+
+
+
+  <modal title="消息" confirm-text="留下来" cancel-text="跳转" hidden="{{true}}" bindconfirm="stayPage" bindcancel="jump">
+  <audio poster="{{poster}}" name="{{name}}" author="{{author}}" src="{{src}}" id="myAudio" controls loop bindplay="funplay" bindpause="funpause" bindtimeupdate="funtimeupdate" bindended="funended" binderror="funerror"></audio>
+  </modal>
+</page>

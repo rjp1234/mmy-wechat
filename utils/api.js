@@ -11,6 +11,7 @@ var userDetail = HOST + user_module +"/userDetail";
 var lession_module = 'lession';
 var lessionList = HOST + lession_module + '/lessionList';
 var lessionForm = HOST + lession_module + '/lessionForm';
+var lessionRankingDetail = HOST + lession_module +'/lessionRankingDetail'
 // 录音模块
 var studio_module="studio";
 var studioUpload = HOST + studio_module +"/uploadStudio";
@@ -66,6 +67,7 @@ module.exports = {
   studioUpload: studioUpload,
   userDetail: userDetail,
   userStudioPointRecordList: userStudioPointRecordList,
+  lessionRankingDetail: lessionRankingDetail,
   // METHOD
   fetchGet: fetchGet,
   fetchPost: fetchPost
