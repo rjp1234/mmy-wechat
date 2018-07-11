@@ -102,6 +102,10 @@ Page({
         //请求成功
         var studio = res.data.studio;
         var rankList = res.data.rankList;
+        for (var i = 0; i < rankList.length; i++) {
+          rankList[i].ranking = (i + 1);
+        }
+
         var lession = res.data.lession;
         that.setData({
           rankList: rankList,
@@ -112,6 +116,8 @@ Page({
         });
         console.log(that.data.studio);
         console.log(that.data.rankList);
+
+
 
 
       } else {
