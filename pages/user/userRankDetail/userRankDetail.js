@@ -160,7 +160,7 @@ Page({
     app.globalData.userInfo = mUserInfo;
     if (!mUserInfo) {
       wx.switchTab({
-        url: '../../index/index'
+        url: '/pages/index/index'
       })
     }
 

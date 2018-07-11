@@ -2,6 +2,81 @@
 var Api = require('../../../utils/api.js');
 var util = require('../../../utils/util.js');
 var app = getApp()
+
+import * as echarts from '../../../ec-canvas/echarts';
+const recorderManager = wx.getRecorderManager()
+const innerAudioContext = wx.createInnerAudioContext()
+
+function setOption(chart, rankList) {
+  var nameLabel = [];
+  var pointList = [];
+  for (var i = 0; i < rankList.length; i++) {
+    nameLabel.push("第" + (i + 1) + "名：" + rankList[i].userName);
+    pointList.push(rankList[i].point);
+  }
+  console.log(nameLabel);
+  console.log(pointList);
+
+
+  var option = {
+    color: ['#37a2da', '#32c5e9', '#67e0e3'],
+    tooltip: {
+      trigger: 'axis',
+      axisPointer: { // 坐标轴指示器，坐标轴触发有效
+        type: 'shadow' // 默认为直线，可选为：'line' | 'shadow'
+      }
+    },
+    grid: {
+      left: 20,
+      right: 20,
+      bottom: 15,
+      top: 40,
+      containLabel: true
+    },
+    xAxis: [{
+      type: 'value',
+      axisLine: {
+        lineStyle: {
+          color: '#999'
+        }
+      },
+      axisLabel: {
+        color: '#666'
+      }
+    }],
+    yAxis: [{
+      type: 'category',
+      axisTick: {
+        show: true
+      },
+      data: nameLabel,
+      axisLine: {
+        lineStyle: {
+          color: '#999'
+        }
+      },
+      axisLabel: {
+        color: '#666'
+      }
+    }],
+    series: [{
+        clickable: true,
+        name: '热度',
+        type: 'bar',
+        label: {
+          normal: {
+            show: true,
+            position: 'inside'
+
+          }
+        },
+        data: pointList,
+
+      }
+
+    ]
+  };
+};
 Page({
 
   /**
@@ -12,28 +87,56 @@ Page({
     lessionId: '',
     rankList: [],
     studio: null,
-    time: '',
-    lession: null
+ 
+    lession: null,
+    ec: {
+      // 将 lazyLoad 设为 true 后，需要手动初始化图表
+      lazyLoad: true
+    }
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    console.log(options)
+
     var lessionId = options.lessionId;
     this.setData({
       lessionId: lessionId
 
     });
-    this.getData();
+
 
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function() {
+  onReady() {
+    // 获取组件
+    this.ecComponent = this.selectComponent('#mychart-dom-bar');
+    this.getData();
+  },
+  init: function() {
+    var that = this;
+    that.ecComponent.init((canvas, width, height) => {
+      // 获取组件的 canvas、width、height 后的回调函数
+      // 在这里初始化图表
+      const chart = echarts.init(canvas, null, {
+        width: width,
+        height: height
+      });
+      setOption(chart);
+
+      // 将图表实例绑定到 this 上，可以在其他成员函数（如 dispose）中访问
+      that.chart = chart;
+
+
+
+      // 注意这里一定要返回 chart 实例，否则会影响事件处理等
+      return chart;
+    });
+
 
   },
 
@@ -114,9 +217,24 @@ Page({
           //隐藏转圈圈
           hidden: true
         });
-        console.log(that.data.studio);
-        console.log(that.data.rankList);
 
+        that.ecComponent.init((canvas, width, height) => {
+          // 获取组件的 canvas、width、height 后的回调函数
+          // 在这里初始化图表
+          const chart = echarts.init(canvas, null, {
+            width: width,
+            height: height
+          });
+          setOption(chart, that.data.rankList);
+
+          // 将图表实例绑定到 this 上，可以在其他成员函数（如 dispose）中访问
+          that.chart = chart;
+
+
+
+          // 注意这里一定要返回 chart 实例，否则会影响事件处理等
+          return chart;
+        });
 
 
 

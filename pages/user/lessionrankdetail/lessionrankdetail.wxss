@@ -1,34 +1,36 @@
-.detail{
+.detail {
   height: 100%;
 }
 
-.detail-post-meta{
+.detail-post-meta {
   padding: 30rpx;
   display: flex;
   align-items: center;
   border-bottom: 1px solid #eee;
 }
-.detail-post-avatar{
+
+.detail-post-avatar {
   margin-right: 20rpx;
 }
 
-.detail-post-time{
+.detail-post-time {
   color: #888;
   font-size: 26rpx;
   text-align: right;
-  vertical-align:bottom;
+  vertical-align: bottom;
 }
 
-.detail-post-avatar-img{
+.detail-post-avatar-img {
   width: 85rpx;
   height: 85rpx;
   border-radius: 50%;
 }
-.detail-post-info{
+
+.detail-post-info {
   flex: 1;
 }
 
-.detail-collect-item{
+.detail-collect-item {
   width: 100rpx;
   height: 55rpx;
   line-height: 55rpx;
@@ -39,33 +41,37 @@
   margin-left: 20rpx;
   cursor: pointer;
 }
-.detail-type-item{
+
+.detail-type-item {
   display: inline-block;
 }
 
-.detail-type-item-icon{
+.detail-type-item-icon {
   display: inline-block;
   vertical-align: middle;
   width: 40rpx;
   height: 40rpx;
 }
-.detail-type-item-font{
+
+.detail-type-item-font {
   display: inline-block;
   vertical-align: middle;
   margin-left: 10rpx;
   color: #80bd01;
   font-size: 28rpx;
 }
-.hot{
+
+.hot {
   border: 1rpx solid red !important;
   color: red !important;
 }
 
-.detail-post-header{
+.detail-post-header {
   display: flex;
   padding: 30rpx;
 }
-.detail-posts-tag{
+
+.detail-posts-tag {
   display: inline-block;
   width: 80rpx;
   height: 42rpx;
@@ -76,43 +82,42 @@
   color: #80bd01;
   border: 1rpx solid #80bd01;
 }
-.detail-post-title{
+
+.detail-post-title {
   flex: 1;
   font-size: 20px;
-  text-align:left;
-
-
-  
+  text-align: left;
 }
-.detail-post-wait{
+
+.detail-post-wait {
   flex: 1;
   font-size: 14px;
-  text-align:left;
-  color: grey
-
-  
+  text-align: left;
+  color: grey;
 }
-.detail-post-content{
-  
+
+.detail-post-content {
   padding: 10px;
   border-bottom: 1px solid #eee;
 }
+
 .content-info {
-   padding: 20px;
+  padding: 20px;
   color: #6c6c6c;
   word-wrap: break-word;
   font-size: 20px;
 }
 
-.detail-post-comment{
+.detail-post-comment {
   overflow: hidden;
   border-top: 20rpx solid #eee;
 }
 
-.detail-post-comment-item{
+.detail-post-comment-item {
   display: flex;
 }
-.detail-post-comment-title{
+
+.detail-post-comment-title {
   position: relative;
   line-height: 80rpx;
   padding: 0 30rpx;
@@ -120,19 +125,22 @@
   border-bottom: 1px #eee solid;
 }
 
-.detail-post-comment-avatar-img{
+.detail-post-comment-avatar-img {
   width: 80rpx;
   height: 80rpx;
   border-radius: 50%;
 }
-.detail-post-comment-cell{
+
+.detail-post-comment-cell {
   overflow: hidden;
   flex: 1;
   margin-left: 20rpx;
 }
+
 .detail-post-comment {
   background-color: #fff;
 }
+
 .detail-post-comment-item {
   padding: 30rpx 0;
   margin: 0 30rpx;
@@ -140,24 +148,27 @@
   border-bottom: 1px #eee solid;
 }
 
-.detail-post-comment-info{
+.detail-post-comment-info {
   display: flex;
 }
-.detail-post-comment-info-cell{
+
+.detail-post-comment-info-cell {
   flex: 1;
 }
-.detail-post-zan{
+
+.detail-post-zan {
   width: 33rpx;
   height: 33rpx;
   display: inline-block;
 }
-.detail-post-zan-num{
+
+.detail-post-zan-num {
   display: inline-block;
   margin-left: 10rpx;
   color: #888;
 }
 
-.detail-post-comment-time{
+.detail-post-comment-time {
   font-size: 26rpx;
   color: #666;
 }
@@ -170,54 +181,69 @@
   word-wrap: break-word;
 }
 
-
-.detail-post-comment-null{
+.detail-post-comment-null {
   margin: 50rpx auto;
   text-align: center;
 }
-.detail-post-comment-null .imgnull{
+
+.detail-post-comment-null .imgnull {
   margin: 5rpx auto;
   width: 200rpx;
   height: 200rpx;
 }
-.detail-post-comment-null .textnull{
+
+.detail-post-comment-null .textnull {
   display: block;
   color: #80bd01;
 }
 
-.detail-post-lession-name{
+.detail-post-lession-name {
   font-size: 20px;
-  padding:5px 0px 15px 0px;
-  vertical-align:middle;
+  padding: 5px 0px 15px 0px;
+  vertical-align: middle;
   text-align: center;
 }
-.button-select{
-   vertical-align:middle;
-    text-align: center;
+
+.button-select {
+  vertical-align: middle;
+  text-align: center;
 }
-.btn{
-  margin: 15px 15px
+
+.btn {
+  margin: 15px 15px;
 }
-.button-image{
+
+.button-image {
   margin-top: 40px;
   width: 100%;
-  height:50px;
-  text-align: center
-}
-.image-complete{
- width: 60px;
- height:50px;
-
-
+  height: 50px;
+  text-align: center;
 }
 
-.audioOpen{
+.image-complete {
+  width: 60px;
+  height: 50px;
+}
 
+.audioOpen {
   width: 30px;
   height: 30px;
 }
-.slider{
-  width: 90%;
-  text-align: center
 
+.slider {
+  width: 90%;
+  text-align: center;
+}
+
+.chartcontain {
+  position: relative;
+  top: 0px;
+  width: 100%;
+  height: 200px;
+}
+
+ec-canvas {
+  top: 0px;
+  width: 100%;
+  height: 100%;
 }
