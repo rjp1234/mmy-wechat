@@ -1,23 +1,26 @@
 // pages/user/lessionrankdetail/lessionrankdetail.js
+import * as echarts from '../../../ec-canvas/echarts';
 var Api = require('../../../utils/api.js');
 var util = require('../../../utils/util.js');
-var app = getApp()
-
-import * as echarts from '../../../ec-canvas/echarts';
+var app = getApp();
+var rankListVar=[];
+var curViewUser=null;
 const recorderManager = wx.getRecorderManager()
 const innerAudioContext = wx.createInnerAudioContext()
+function click(e) {
+  var that=this;
+  var index = e.dataIndex;
+  curViewUser = rankListVar[index];
 
+}
 function setOption(chart, rankList) {
+  rankListVar = rankList;
   var nameLabel = [];
   var pointList = [];
   for (var i = 0; i < rankList.length; i++) {
     nameLabel.push("第" + (i + 1) + "名：" + rankList[i].userName);
     pointList.push(rankList[i].point);
   }
-  console.log(nameLabel);
-  console.log(pointList);
-
-
   var option = {
     color: ['#37a2da', '#32c5e9', '#67e0e3'],
     tooltip: {
@@ -49,6 +52,7 @@ function setOption(chart, rankList) {
       axisTick: {
         show: true
       },
+      inverse:true,
       data: nameLabel,
       axisLine: {
         lineStyle: {
@@ -56,8 +60,10 @@ function setOption(chart, rankList) {
         }
       },
       axisLabel: {
+        interval: 0,
         color: '#666'
       }
+
     }],
     series: [{
         clickable: true,
@@ -76,6 +82,10 @@ function setOption(chart, rankList) {
 
     ]
   };
+  chart.on('click',click);
+  chart.setOption(option);
+  
+  
 };
 Page({
 
@@ -87,7 +97,7 @@ Page({
     lessionId: '',
     rankList: [],
     studio: null,
- 
+
     lession: null,
     ec: {
       // 将 lazyLoad 设为 true 后，需要手动初始化图表
@@ -108,6 +118,7 @@ Page({
 
 
   },
+  
 
   /**
    * 生命周期函数--监听页面初次渲染完成
@@ -137,6 +148,10 @@ Page({
       return chart;
     });
 
+
+  },
+  click:function(){
+    console.log(curViewUser)
 
   },
 

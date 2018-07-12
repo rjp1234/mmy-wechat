@@ -26,7 +26,7 @@
   </view>
 <!--index.wxml-->
 <view class="chartcontain">
-  <ec-canvas id="mychart-dom-bar" bindtap='click()' canvas-id="mychart-bar" ec="{{ ec }}"></ec-canvas>
+  <ec-canvas touchend='click' id="mychart-dom-bar"  canvas-id="mychart-bar" ec="{{ ec }}"></ec-canvas>
 </view>
 
 
