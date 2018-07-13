@@ -3,16 +3,23 @@ import * as echarts from '../../../ec-canvas/echarts';
 var Api = require('../../../utils/api.js');
 var util = require('../../../utils/util.js');
 var app = getApp();
-var rankListVar=[];
-var curViewUser=null;
+var rankListVar = [];
+var curViewUser = null;
+var curPage;
 const recorderManager = wx.getRecorderManager()
 const innerAudioContext = wx.createInnerAudioContext()
-function click(e) {
-  var that=this;
+
+function chartClick(e) {
+  console.log('chartClick')
+  if (e == null) {
+    return curViewUser;
+  }
+  var that = this;
   var index = e.dataIndex;
   curViewUser = rankListVar[index];
-
+  return curViewUser;
 }
+
 function setOption(chart, rankList) {
   rankListVar = rankList;
   var nameLabel = [];
@@ -52,7 +59,7 @@ function setOption(chart, rankList) {
       axisTick: {
         show: true
       },
-      inverse:true,
+      inverse: true,
       data: nameLabel,
       axisLine: {
         lineStyle: {
@@ -82,10 +89,10 @@ function setOption(chart, rankList) {
 
     ]
   };
-  chart.on('click',click);
+  chart.on('click', chartClick);
   chart.setOption(option);
-  
-  
+
+
 };
 Page({
 
@@ -120,6 +127,7 @@ Page({
   },
   
 
+
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
@@ -150,9 +158,12 @@ Page({
 
 
   },
-  click:function(){
-    console.log(curViewUser)
-
+  /**
+   * 长按查看当前用户的录音信息
+   */
+  viewStudio: function() {
+   // console.log(chartClick(null));
+    
   },
 
   /**
