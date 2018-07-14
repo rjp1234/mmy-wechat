@@ -1,8 +1,9 @@
 <!-- login.wxml -->
-<view class="page login">
+<page class="page">
+<view  class="login">
 
   <view class="login-item">
-    <image class="login-item-img" mode="scaleToFill" src="/images/icon/logo.png"></image>
+    <image class="login-item-img" style="height:100%;width:100%" src="/images/icon/logo.png"></image>
 
     <view class="login-item-section">
       <!--<input placeholder="请输入Token" class="login-item-input" placeholder-style="color:#f5f5f5;" bindinput="bindKeyInput" />-->
@@ -21,5 +22,5 @@
       <button type="primary" size="default" plain="false" loading="{{loading}}" class="login-button" bindtap="login"> 登录 </button>
     </view>
   </view>
-
 </view>
+</page>

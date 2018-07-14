@@ -1,4 +1,4 @@
-// posts.js
+// posts.jsDDrenjianping
 var Api = require('../../utils/api.js');
 var util = require('../../utils/util.js');
 const app = getApp();
@@ -7,6 +7,7 @@ const innerAudioContext = wx.createInnerAudioContext()
 //var tempFilePath = null;
 Page({
   data: {
+    fontSize: 220,
     //示范录音播放器配置
     currentTime1: 0,
     duration1: 0,
@@ -18,8 +19,8 @@ Page({
     result2: '0分0秒',
     isOpen2: false,
 
-    completeHidden:true,
-    studioSrc: null, //学生录音的url
+    completeHidden: true,
+    studioSrc: null, //学生录音的urlD
     lessionId: '',
     hidden: false,
     detail: null,
@@ -41,7 +42,7 @@ Page({
     voiceState: false, //播放本地录音 false.开始播放。true、结束播放
     modalHidden: true, //确认录音上传的弹窗提示
     type: false, //背诵&朗读 朗读=false 背诵=true
-    speed:1
+    speed: 1
 
   },
   onShow: function() {
@@ -54,7 +55,19 @@ Page({
     }
 
   },
+  viewRanking: function() {
+      var that = this;
+      var jumpUrl = "/pages/user/lessionrankdetail/lessionrankdetail?lessionId=" + that.data.detail.id;
+      console.log(jumpUrl)
+      wx.navigateTo({
+        url: jumpUrl
 
+
+      });
+    }
+
+
+    ,
   onLoad: function(options) {
     this.audioCtx1 = wx.createAudioContext('myAudio1')
     this.audioCtx2 = wx.createAudioContext('myAudio2')
@@ -83,7 +96,8 @@ Page({
         studioHidden: false,
         read: "朗读模式结束",
         readState: false,
-        type: false
+        type: false,
+
       })
     } else {
       //第二次点击时，取消朗读
@@ -104,6 +118,37 @@ Page({
       }
     }
   },
+  /**
+   * 点击字体放大
+   */
+  fontBigger: function() {
+    var that = this;
+    console.log(that.data.fontSize)
+    if(that.data.fontSize>340){
+      return;
+    }
+    that.setData({
+      fontSize: that.data.fontSize + 20
+    })
+
+
+  },
+  /**
+   * 点击字体变小
+   */
+  fontSmaller:function(){
+    var that = this;
+    console.log(that.data.fontSize)
+    if (that.data.fontSize <180) {
+      return;
+    }
+    that.setData({
+      fontSize: that.data.fontSize - 20
+    })
+
+  },
+
+
   /**
    * 点击背诵按钮触发
    */
@@ -217,7 +262,7 @@ Page({
         that.setData({
           studioSrc: res.tempFilePath
         })
-        
+
         console.log('停止录音', res.tempFilePath)
       })
 
@@ -239,7 +284,7 @@ Page({
     var ApiUrl = Api.studioUpload;
     var mUserInfo = wx.getStorageSync("mUserInfo");
     var studioType = '';
-    var lessionId=that.data.lessionId;
+    var lessionId = that.data.lessionId;
     if (!that.data.type) {
       studioType = '0'
     } else {
@@ -264,12 +309,12 @@ Page({
         if (data.code == '0') {
           console.log('上传成功');
           //如果之前有一次成功完成的记录，那么算上本次就全部完成了
-         //if (that.data.detail.readState || that.data.detail.reciteState) {
-            //弹出选择，留在本页还是跳转列表页面
-            that.setData({
-              completeHidden: false
-            })
-        //  }
+          //if (that.data.detail.readState || that.data.detail.reciteState) {
+          //弹出选择，留在本页还是跳转列表页面
+          that.setData({
+            completeHidden: false
+          })
+          //  }
           console.log("that.data.lesssionId" + lessionId)
           //上传录音伴随着状态改变，需要重新加载页面
           that.fetchData(lessionId);
@@ -277,8 +322,8 @@ Page({
           that.setData({
             studioSrc: null
           })
- 
-         
+
+
 
 
         } else {
@@ -318,8 +363,8 @@ Page({
 
 
   },
-  stayPage:function(){
-    var that=this;
+  stayPage: function() {
+    var that = this;
     that.setData({
       completeHidden: true
     });
@@ -351,7 +396,7 @@ Page({
 
 
   },
-  jump:function(){
+  jump: function() {
     wx.switchTab({
       url: '../topics/topics',
     })
@@ -367,7 +412,7 @@ Page({
       /**
        * 直接还原初始设置
        */
-     
+
       author: '',
       contentHidden: false,
       exampleHidden: false,
@@ -455,7 +500,7 @@ Page({
     /**
      * 测试使用
      */
- 
+
     that.setData({
       hidden: false,
       lessionId: id
@@ -487,13 +532,13 @@ Page({
     })
   },
   //播放器1 start
-  audioPlay1: function () {
+  audioPlay1: function() {
     this.audioCtx1.play()
     this.setData({
       isOpen1: true
     })
   },
-  audioPause1: function () {
+  audioPause1: function() {
     this.audioCtx1.pause()
     this.setData({
       isOpen1: false
@@ -518,27 +563,27 @@ Page({
     })
     that.audioSeek1(e.detail.value)
   },
-  audioSeek1: function (currentTime) {
+  audioSeek1: function(currentTime) {
     this.audioCtx1.seek(currentTime / 100)
   },
   formatSeconds1(s) {
-    var that=this;
+    var that = this;
     var time = Math.floor(s / 60) + "分" + Math.floor(s - Math.floor(s / 60) * 60) + "秒";
-    console.log( "1、"+time)
+    console.log("1、" + time)
     that.setData({
 
       result1: time
 
     })
   },
-//播放器2 start
-  audioPlay2: function () {
+  //播放器2 start
+  audioPlay2: function() {
     this.audioCtx2.play()
     this.setData({
       isOpen2: true
     })
   },
-  audioPause2: function () {
+  audioPause2: function() {
     this.audioCtx2.pause()
     this.setData({
       isOpen2: false
@@ -562,11 +607,11 @@ Page({
     })
     that.audioSeek2(e.detail.value)
   },
-  audioSeek2: function (currentTime) {
+  audioSeek2: function(currentTime) {
     this.audioCtx2.seek(currentTime / 100)
   },
   formatSeconds2(s) {
-    var that=this;
+    var that = this;
     var time = Math.floor(s / 60) + "分" + Math.floor(s - Math.floor(s / 60) * 60) + "秒";
     console.log(time)
     that.setData({
@@ -588,9 +633,8 @@ Page({
     that.setData({
       author: msg
     })
-  }
-  ,
-  back:function(){
+  },
+  back: function() {
 
     wx.switchTab({
       url: '../topics/topics',

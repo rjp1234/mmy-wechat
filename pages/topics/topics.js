@@ -1,19 +1,7 @@
 var Api = require('../../utils/api.js');
 var util = require('../../utils/util.js');
 var app = getApp()
-var navList = [{
-  id:"lession",
-  title: "课文列表"
-},{
-  id:"score",
-  title:"我的成绩"
-},{
-  id:'record',
-  title:"我的记录"
-
-}
-
-];
+var navList = app.globalData.navList;
 
 Page({
   data: {
@@ -26,9 +14,9 @@ Page({
     all: false
 
   },
-  onShow:function(){
-    var mUserInfo=wx.getStorageSync("mUserInfo");
-    if(!mUserInfo){
+  onShow: function() {
+    var mUserInfo = wx.getStorageSync("mUserInfo");
+    if (!mUserInfo) {
       wx.switchTab({
         url: '../index/index'
       })
@@ -42,11 +30,11 @@ Page({
     })
     this.getData();
   },
-  onLoad: function () {
-   
+  onLoad: function() {
+
   },
 
-  onPullDownRefresh: function () {
+  onPullDownRefresh: function() {
     this.setData({
       pageNo: 1,
       pageSize: 20,
@@ -60,13 +48,13 @@ Page({
   },
 
 
-  onReachBottom: function () {
+  onReachBottom: function() {
     this.lower();
     console.log('上拉刷新', new Date());
   },
 
   //获取文章列表数据
-  getData: function () {
+  getData: function() {
     //获取前，先进行accToken和userId的判断，若为空，跳转登陆页面
     var mUserInfo = wx.getStorageSync("mUserInfo");
     app.globalData.userInfo = mUserInfo;
@@ -123,32 +111,14 @@ Page({
     })
 
   },
-  onTapTag:function(e){
-    console.log(e);
-    var id=e.target.id;
-    if("lession"==id){
-      wx.switchTab({
-        url: '../topics/topics',
-      })
-
-    }else if ('score'==id){
-      wx.navigateTo({
-        url: '/pages/user/userRankDetail/userRankDetail'
-      })
-    }else if('record'==id){
-      wx.navigateTo({
-        url: '/pages/user/pointrecord/pointrecord'
-      })
-
-    }
-
-
+  onTapTag: function(e) {
+    app.onTapTag(e)
   },
 
   // 滑动底部加载
-  lower: function () {
+  lower: function() {
     console.log('滑动底部加载', new Date());
-    this.getData()
+    this.getData();
   }
 
 })

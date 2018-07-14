@@ -1,6 +1,7 @@
-<import src="../../common/nav.wxml"/><!-- detail -->
+<import src="../../common/nav.wxml" />
+<!-- detail -->
 <page class="page detail">
- <template  is="nav" data="{{ navList, activeIndex }}"/>
+  <template is="nav" data="{{ navList, activeIndex }}" />
   <view class="detail-post-meta">
     <view class="detail-post-avatar">
       <image class="image-complete" src="/images/icon/score.jpg" />
@@ -8,7 +9,6 @@
     <view class="detail-post-info">
       <view class="detail-post-lession-name">
         <text>{{detail.name }}的成绩单</text>
-        
       </view>
       <view class="detail-post-time" wx:if="{{detail.lastPointTime}}">最后一次打分截止于{{detail.lastPointTime}}</view>
     </view>
@@ -34,12 +34,18 @@
   </view>
   <view class="detail-post-content">
     <view class="detail-post-title">
-      当前排名:{{detail.ranking+1}}
+      当前班级排名:{{detail.ranking+1}}
     </view>
   </view>
   <view class="detail-post-content">
     <view class="detail-post-title">
       平均分: {{ detail.avgPoint }}
+    </view>
+  </view>
+  <view class="detail-post-content">
+    <view class="detail-post-title">
+      你的榜样---
+      <text style='color:green'>{{detail.frontRunnerName}}</text>
     </view>
   </view>
   <view class="detail-post-content">

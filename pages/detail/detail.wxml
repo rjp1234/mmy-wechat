@@ -12,12 +12,16 @@
       <view class="detail-post-time">{{ detail.issueTime }}</view>
     </view>
   </view>
-
+  <view class="detail-post-content" hidden="{{tContentHidden}}">
+   <view class="detail-post-title">字体设置</view>
+  <button size="mini"  class='btn'   bindtap='fontBigger'>+</button>
+  <button size="mini"  class='btn'  bindtap='fontSmaller'>-</button>
+  </view>
   <view class="detail-post-content" hidden='{{contentHidden}}'>
     <view class="detail-post-title">
       课文内容:
     </view>
-    <text class="content-info">{{ detail.content }}</text>
+    <text class="content-info" style='font-size:{{fontSize}}%'>{{ detail.content }}</text>
   </view>
   <view class="detail-post-content" hidden='{{exampleHidden}}'>
     <view class="detail-post-title">
@@ -36,17 +40,13 @@
 
     </view>
 
-    <!--audio end-->
-
-    <!-- 
- <audio poster="{{detail.image}}" name="{{detail.name}}" author="{{author}}" src="{{detail.exampleUrl}}" id="example" controls bindplay="funplay" bindpause="funpause" bindtimeupdate="funtimeupdate" bindended="funended" binderror="funerror" action="{{action}}"></audio> -->
 
   </view>
   <view class="detail-post-content" hidden="{{tContentHidden}}">
     <view class="detail-post-title">
       老师的话:
     </view>
-    <text class="content-info">{{ detail.tContent }}</text>
+    <text class="content-info" style="font-size:{{fontSize}}%">{{detail.tContent}}</text>
   </view>
   <view class="detail-post-content" hidden="{{tStudioHidden}}">
     <view class="detail-post-title">
@@ -61,16 +61,18 @@
 
     </view>
     <view class="audioOpen">
-      <image class="audioOpen" bindtap="audioPlay2" wx:if="{{!isOpen2}}" src="../../images/icon/voice1.jpg" />
+      <image class="audioOpen" bindtap="audioPlay2" wx:if="{{!isOpen2}}" src="/images/icon/voice1.jpg" />
 
-      <image class="audioOpen" src="../../images/icon/voice2.jpg" bindtap="audioPause2" wx:if="{{isOpen2}}" />
+      <image class="audioOpen" src="/images/icon/voice2.jpg" bindtap="audioPause2" wx:if="{{isOpen2}}" />
     </view>
     <!--audio end-->
   </view>
   <view class="button-select">
     <!-- <button wx:if="{{!detail.readState}}" class='btn' size="mini" hidden='{{readHidden}}' bindtap='read'>{{read}}</button> -->
     <button wx:if="{{!detail.reciteState}}" class='btn' size="mini" hidden='{{reciteHidden}}' bindtap='recite'>{{recite}}</button>
-    <button class='btn' wx:if="{{detail.reciteState}}" bindtap='' size="mini">查看名次</button>   
+    
+      <button bindtap='viewRanking' class='btn'  size="mini"  wx:if="{{detail.reciteState}}">查看名次</button>
+  
     <button class='btn' wx:if="{{detail.reciteState}}" bindtap='back' size="mini">返回列表</button>
   </view>
 

@@ -1,17 +1,7 @@
-<!--index.wxml-->
-<!-- <view class="container">
-  <view  bindtap="bindViewTap" class="userinfo">
-    <image class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
-    <text class="userinfo-nickname">{{userInfo.nickName}}</text>
-  </view>
-  <view class="usermotto">
-    <text class="user-motto">{{motto}}</text>
-  </view>
-</view> -->
 
 <view class="page me">
   <view class="userinfo">
-    <image class="userinfo-avatar" src="{{userInfo.image}}" background-size="cover"></image>
+    <image class="userinfo-avatar" src="{{userInfo.image==null?'/images/icon/visit.png':userInfo.image}}" background-size="cover"></image>
     <text class="userinfo-nickname">{{userInfo.nickname}}</text>
   
   </view>

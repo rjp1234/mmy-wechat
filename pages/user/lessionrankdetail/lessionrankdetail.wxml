@@ -52,7 +52,7 @@
 
   <view class="button-select">
     <navigator open-type="navigateBack" hover-class="other-navigator-hover">
-      <button class='btn' size="mini">返回我的记录</button>
+      <button class='btn' size="mini">返回</button>
     </navigator>
   </view>
 

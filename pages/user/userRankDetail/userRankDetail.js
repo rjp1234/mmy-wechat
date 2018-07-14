@@ -6,15 +6,7 @@ const app = getApp();
 const recorderManager = wx.getRecorderManager()
 const innerAudioContext = wx.createInnerAudioContext()
 //var tempFilePath = null;
-var navList = [{
-    id: "lession",
-    title: "课文列表"
-  }, {
-    id: "score",
-    title: "我的成绩"
-  }
-
-];
+var navList = app.globalData.navList;
 
 function setOption(chart, detail) {
 
@@ -59,7 +51,7 @@ function setOption(chart, detail) {
 Page({
   data: {
     navList: navList,
-    activeIndex: 1,
+    activeIndex: 2,
     hidden: false,
     detail: null,
     user: null,
@@ -108,33 +100,22 @@ Page({
       wx.switchTab({
         url: '/pages/index/index'
       })
-    }else{
+    } else {
       this.setData({
 
         user: user
 
       });
     }
-  
+
   },
 
   onLoad: function(options) {
-   
+
 
   },
   onTapTag: function(e) {
-    console.log(e);
-    var id = e.target.id;
-    if ('lession' == id) {
-      wx.switchTab({
-        url: '/pages/topics/topics',
-      })
-
-    } else if ('score' == id) {
-      wx.navigateTo({
-        url: '/pages/user/userRankDetail/userRankDetail'
-      })
-    }
+    app.onTapTag(e)
 
 
   },

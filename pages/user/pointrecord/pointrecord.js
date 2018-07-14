@@ -1,19 +1,7 @@
 var Api = require('../../../utils/api.js');
 var util = require('../../../utils/util.js');
 var app = getApp()
-var navList = [{
-    id: "lession",
-    title: "课文列表"
-  }, {
-    id: "score",
-    title: "我的成绩"
-  }, {
-    id: 'record',
-    title: "我的记录"
-
-  }
-
-];
+var navList = app.globalData.navList;
 // pages/user/studiopointrecord/studiopointrecord.js
 Page({
 
@@ -21,7 +9,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    activeIndex: 2,
+    activeIndex: 1,
     navList: navList,
     size: 20,
     time: '',
@@ -137,23 +125,7 @@ Page({
 
   },
   onTapTag: function(e) {
-    console.log(e);
-    var id = e.target.id;
-    if ("lession" == id) {
-      wx.switchTab({
-        url: '/pages/topics/topics',
-      })
-
-    } else if ('score' == id) {
-      wx.navigateTo({
-        url: '/pages/user/userRankDetail/userRankDetail'
-      })
-    } else if ('record' == id) {
-      wx.navigateTo({
-        url: '/pages/user/pointrecord/pointrecord'
-      })
-
-    }
+    app.onTapTag(e);
 
 
   },

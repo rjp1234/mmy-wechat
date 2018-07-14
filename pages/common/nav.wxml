@@ -3,7 +3,7 @@
     <view class="top-bar">
       <block wx:for="{{navList}}" wx:key="">
         <view id="{{item.id}}" data-index="{{index}}"
-              class="top-bar-item {{index == activeIndex ? 'top-bar-active' : ''}}"
+              class="top-bar-item {{index == activeIndex ? 'top-bar-active' : ''}}" style='float:left; margin-top: 2% ;margin-left: 2.5%;width: 30%; '
               catchtap="onTapTag">{{item.title}}</view>
       </block>
     </view>

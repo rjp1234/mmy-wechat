@@ -50,7 +50,7 @@ Page({
   onLoad: function(options) {
     this.audioCtx1 = wx.createAudioContext('myAudio1');
     this.audioCtx2 = wx.createAudioContext('myAudio2');
-
+    console.log(options)
     var lessionId = options.lessionId;
     this.setData({
       lessionId: lessionId
