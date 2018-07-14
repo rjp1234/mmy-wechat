@@ -18,7 +18,6 @@ Page({
     result2: '0分0秒',
     isOpen2: false,
 
-
     completeHidden:true,
     studioSrc: null, //学生录音的url
     lessionId: '',

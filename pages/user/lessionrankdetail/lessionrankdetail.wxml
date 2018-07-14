@@ -14,29 +14,64 @@
   </view>
 
   <view class="detail-post-content" wx:if="{{studio.pointer !=null}}">
-    <view class="detail-post-title" >
-      你本次的排名为:第{{ studio.ranking+1 }}名
+    <view class="detail-post-title">
+      你本次的排名为:<text style="color:green">第{{ studio.ranking+1 }}名</text>
     </view>
-  
+
   </view>
-<view class="detail-post-content" wx:if="{{studio.pointer ==null}}">
-    <view class="detail-post-wait" >
+  <view class="detail-post-content" wx:if="{{studio.pointer ==null}}">
+    <view class="detail-post-wait">
       你的成绩还在批改中哟，请稍作等待
     </view>
   </view>
-<!--index.wxml-->
-<view class="chartcontain">
-  <ec-canvas bindtap='viewStudio' id="mychart-dom-bar"  canvas-id="mychart-bar" ec="{{ ec }}"></ec-canvas>
-</view>
+  <view class="detail-post-content" wx:if="{{studio.url !=null}}">
+    <view class="detail-post-title">
+      你的录音：
+    </view>
+    <!--audio start-->
+    <audio src="{{studio.url}}" id="myAudio2" bindtimeupdate="updata2"></audio>
+    <view class="progress">
+      <text>{{result2}}</text>
+      <slider bindchange="sliderChange2" step="2" value="{{currentTime2}}" max="{{duration2}}" class="slider" selected-color="#ff5e5e" />
+      <text>{{times2}}</text>
+
+    </view>
+    <view class="audioOpen">
+      <image class="audioOpen" bindtap="audioPlay2" wx:if="{{!isOpen2}}" src="/images/icon/voice1.jpg" />
+
+      <image class="audioOpen" src="/images/icon/voice2.jpg" bindtap="audioPause2" wx:if="{{isOpen2}}" />
+    </view>
+    <!--audio end-->
+  </view>
+
+  <!--index.wxml-->
+  <view class="chartcontain">
+    <ec-canvas id="mychart-dom-bar" canvas-id="mychart-bar" ec="{{ ec }}"></ec-canvas>
+  </view>
 
 
   <view class="button-select">
-    <button class='btn' wx:if="{{detail.reciteState}}" bindtap='back' size="mini">返回我的记录</button>
+    <navigator open-type="navigateBack" hover-class="other-navigator-hover">
+      <button class='btn' size="mini">返回我的记录</button>
+    </navigator>
   </view>
 
 
 
-  <modal title="消息" confirm-text="留下来" cancel-text="跳转" hidden="{{true}}" bindconfirm="stayPage" bindcancel="jump">
-  <audio poster="{{poster}}" name="{{name}}" author="{{author}}" src="{{src}}" id="myAudio" controls loop bindplay="funplay" bindpause="funpause" bindtimeupdate="funtimeupdate" bindended="funended" binderror="funerror"></audio>
+  <modal title="{{'第'+curViewUser.ranking+'名：'+curViewUser.userName}}" cancel-text="返回" hidden="{{modalHidden}}" bindcancel="cancel" confirm-text="确认" bindconfirm="cancel">
+    <!--audio start-->
+    <audio src="{{curViewUser.studioUrl}}" id="myAudio1" bindtimeupdate="updata1"></audio>
+    <view class="progress">
+      <text>{{result1}}</text>
+      <slider bindchange="sliderChange1" step="2" value="{{currentTime1}}" max="{{duration1}}" class="slider" selected-color="#ff5e5e" />
+      <text>{{times1}}</text>
+      <view class="audioOpen">
+        <image class="audioOpen" bindtap="audioPlay1" wx:if="{{!isOpen1}}" src="/images/icon/voice1.jpg" />
+        <image class="audioOpen" src="/images/icon/voice2.jpg" bindtap="audioPause1" wx:if="{{isOpen1}}" />
+      </view>
+
+    </view>
+
+    <!--audio end-->
   </modal>
 </page>
