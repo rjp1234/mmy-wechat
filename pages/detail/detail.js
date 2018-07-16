@@ -223,6 +223,10 @@ Page({
     var that = this;
     var state = that.data.studioState;
     if (!state) {
+     //stop audio before studioRecord
+      that.audioPause1();
+      that.audioPause2();
+      that.audioPause3();
       //开始录音
       that.setData({
         studioState: true,
