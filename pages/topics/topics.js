@@ -82,6 +82,7 @@ Page({
         //请求成功
         lessionList = res.data.lessionList;
         lessionList = that.data.postsList.concat(lessionList);
+        console.log(lessionList)
         that.setData({
           postsList: lessionList,
           //隐藏转圈圈

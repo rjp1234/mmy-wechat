@@ -9,10 +9,11 @@
               <image class='item-image' src="{{item.image}}" />
               <view class="item-box">
                 <view class="posts-title">
-                  <text >{{item.name}}</text>
+                  <text >第{{item.unit}}单元:{{item.name}}</text>
                 </view>
-                <view class=".item-bottom">
+                <view class="item-bottom">
                     <text>通关{{item.completeNum}}人</text>
+                    <text class='listtime'>{{item.issueTime}}</text>
                 </view>
                 <image wx:if="{{item.reciteState}}" class="completeImg" src="../../images/icon/complete.jpg" ></image>
               </view>
@@ -22,7 +23,6 @@
       </block>
     </view>
   </scroll-view>
-
   <loading class="loading" hidden="{{hidden}}">
     <text class="loading-font">加载中...</text>
   </loading>

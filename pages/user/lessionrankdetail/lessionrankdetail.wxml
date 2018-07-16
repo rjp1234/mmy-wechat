@@ -45,10 +45,12 @@
   </view>
 
   <!--index.wxml-->
-  <view class="chartcontain">
+  <view class="chartcontain" hidden='{{rankList.length==0}}'>
     <ec-canvas id="mychart-dom-bar" canvas-id="mychart-bar" ec="{{ ec }}"></ec-canvas>
   </view>
-
+ <view class="detail-post-content" hidden='{{rankList.length>0}}'>
+     <view class="detail-post-title" style='color:#FF8800'>懒惰的老师一份作业都没批，快点催催他吧</view>
+  </view>
 
   <view class="button-select">
     <navigator open-type="navigateBack" hover-class="other-navigator-hover">

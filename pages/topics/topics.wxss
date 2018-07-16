@@ -80,7 +80,8 @@
   left: 30px;
   height: 80rpx;
   margin: 20rpx 0;
-  font-size: 40rpx;
+  text-align: left;
+  font-size: 30rpx;
   color: #35495e;
   
   display: -webkit-box;
@@ -169,4 +170,9 @@
 .item-bottom text {
   margin-right: 5px;
   color: gray
+}
+.listtime{
+  text-align: right;
+  margin-left: 20px;
+
 }
