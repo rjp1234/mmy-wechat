@@ -13,9 +13,9 @@
     </view>
   </view>
   <view class="detail-post-content" hidden="{{tContentHidden}}">
-   <view class="detail-post-title">字体设置</view>
-  <button size="mini"  class='btn'   bindtap='fontBigger'>+</button>
-  <button size="mini"  class='btn'  bindtap='fontSmaller'>-</button>
+    <view class="detail-post-title">字体设置</view>
+    <button size="mini" class='btn' bindtap='fontBigger'>+</button>
+    <button size="mini" class='btn' bindtap='fontSmaller'>-</button>
   </view>
   <view class="detail-post-content" hidden='{{contentHidden}}'>
     <view class="detail-post-title">
@@ -70,17 +70,30 @@
   <view class="button-select">
     <!-- <button wx:if="{{!detail.readState}}" class='btn' size="mini" hidden='{{readHidden}}' bindtap='read'>{{read}}</button> -->
     <button wx:if="{{!detail.reciteState}}" class='btn' size="mini" hidden='{{reciteHidden}}' bindtap='recite'>{{recite}}</button>
-    
-      <button bindtap='viewRanking' class='btn'  size="mini"  wx:if="{{detail.reciteState}}">查看名次</button>
-  
-    <button class='btn' wx:if="{{detail.reciteState}}" bindtap='back' size="mini">返回列表</button>
+
+    <button bindtap='viewRanking' class='btn' size="mini" wx:if="{{detail.reciteState}}">查看名次</button>
+
+    <button class='btn'  bindtap='back' size="mini">返回列表</button>
   </view>
 
 
   <view class="button-image" hidden='{{studioHidden}}'>
     <image src='{{studio_logo}}' style='width:80px;height:80px' bindtap='studioRecord'></image>
+    <image class="audioOpen" bindtap="audioPlay3" wx:if="{{!isOpen3&&studioSrc.length>0}}" src="/images/icon/voice1.jpg" style='width:80px;height:80px' />
 
-    <image wx:if="{{studioSrc.length>0}}" src='{{voice_logo}}' style='width:80px;height:80px' bindtap='voicePlay'></image>
+    <image class="audioOpen" src="/images/icon/voice2.jpg" bindtap="audioPause3" wx:if="{{isOpen3&&studioSrc.length>0}}" style='width:80px;height:80px' />
+    <!--audio start-->
+    <view wx:if="{{studioSrc.length>0}}">
+      <audio src="{{studioSrc}}" id="myAudio3" bindtimeupdate="updata3"></audio>
+      <view class="progress">
+        <text>{{result3}}</text>
+        <slider bindchange="sliderChange3" step="1" value="{{currentTime3}}" max="{{duration3}}" class="slider" selected-color="#ff5e5e" />
+        <text>{{times3}}</text>
+
+      </view>
+    </view>
+    <!--audio end-->
+
   </view>
   <modal title="消息" confirm-text="提交" cancel-text="取消" hidden="{{modalHidden}}" bindconfirm="upload" bindcancel="cancelUpload" wx:if="{{studioSrc.length>0}}">
     确认提交当前的录音？

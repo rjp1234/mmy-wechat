@@ -7,7 +7,7 @@ const innerAudioContext = wx.createInnerAudioContext()
 //var tempFilePath = null;
 Page({
   data: {
-    fontSize: 220,
+    fontSize: 120,
     //示范录音播放器配置
     currentTime1: 0,
     duration1: 0,
@@ -18,6 +18,13 @@ Page({
     duration2: 0,
     result2: '0分0秒',
     isOpen2: false,
+    //学生录制播放器配置
+    currentTime3: 0,
+    duration3: 0,
+    result3: '0分0秒',
+    isOpen3: false,
+
+
 
     completeHidden: true,
     studioSrc: null, //学生录音的urlD
@@ -45,6 +52,29 @@ Page({
     speed: 1
 
   },
+  /**
+   * 生命周期函数--监听页面卸载/
+   */
+  onUnload: function() {
+    console.log("onUnload");
+    //页面隐藏时关闭所有音频
+    var that = this;
+    that.audioPause1();
+    that.audioPause2();
+    that.audioPause3();
+
+  },
+
+  onHide: function() {
+    console.log("onhide");
+    //页面隐藏时关闭所有音频
+    var that = this;
+    that.audioPause1();
+    that.audioPause2();
+    that.audioPause3();
+
+
+  },
   onShow: function() {
 
     var mUserInfo = wx.getStorageSync("mUserInfo");
@@ -56,21 +86,19 @@ Page({
 
   },
   viewRanking: function() {
-      var that = this;
-      var jumpUrl = "/pages/user/lessionrankdetail/lessionrankdetail?lessionId=" + that.data.detail.id;
-      console.log(jumpUrl)
-      wx.navigateTo({
-        url: jumpUrl
+    var that = this;
+    var jumpUrl = "/pages/user/lessionrankdetail/lessionrankdetail?lessionId=" + that.data.detail.id;
+    console.log(jumpUrl)
+    wx.navigateTo({
+      url: jumpUrl
 
 
-      });
-    }
-
-
-    ,
+    });
+  },
   onLoad: function(options) {
     this.audioCtx1 = wx.createAudioContext('myAudio1')
     this.audioCtx2 = wx.createAudioContext('myAudio2')
+    this.audioCtx3 = wx.createAudioContext('myAudio3')
     console.log("onload")
     //navigator 跳转传递的参数传送到这里
     this.fetchData(options.id);
@@ -124,7 +152,7 @@ Page({
   fontBigger: function() {
     var that = this;
     console.log(that.data.fontSize)
-    if(that.data.fontSize>340){
+    if (that.data.fontSize > 200) {
       return;
     }
     that.setData({
@@ -136,10 +164,10 @@ Page({
   /**
    * 点击字体变小
    */
-  fontSmaller:function(){
+  fontSmaller: function() {
     var that = this;
     console.log(that.data.fontSize)
-    if (that.data.fontSize <180) {
+    if (that.data.fontSize < 50) {
       return;
     }
     that.setData({
@@ -154,6 +182,10 @@ Page({
    */
   recite: function() {
     var that = this;
+
+    that.audioPause1();
+    that.audioPause2();
+    that.audioPause3();
     if (that.data.reciteState) {
       that.setData({
         exampleHidden: true,
@@ -206,7 +238,10 @@ Page({
         //背诵模式，隐藏朗读模式按钮
         that.setData({
           reciteHidden: true
-        })
+        });
+
+
+
       }
       /**
        * 
@@ -547,6 +582,13 @@ Page({
   updata1(e) {
     var that = this;
     // console.log((e.detail.currentTime / 100).toFixed(2))
+    if (e.detail.duration == null) {
+      return;
+    }
+    if (e.detail.duration == e.detail.currentTime) {
+      //播放完毕调用暂停方法
+      that.audioPause1();
+    }
     let duration = e.detail.duration.toFixed(2) * 100,
       currentTime = e.detail.currentTime.toFixed(2) * 100;
     that.setData({
@@ -592,6 +634,13 @@ Page({
   updata2(e) {
     var that = this;
     // console.log((e.detail.currentTime / 100).toFixed(2))
+    if (e.detail.duration == null) {
+      return;
+    }
+    if (e.detail.duration == e.detail.currentTime) {
+      //播放完毕调用暂停方法
+      that.audioPause2();
+    }
     let duration = e.detail.duration.toFixed(2) * 100,
       currentTime = e.detail.currentTime.toFixed(2) * 100;
     that.setData({
@@ -620,6 +669,63 @@ Page({
 
     })
   },
+  //播放器3 start
+  audioPlay3: function() {
+    this.audioCtx3.play()
+    this.setData({
+      isOpen3: true
+    })
+  },
+  audioPause3: function() {
+    this.audioCtx3.pause()
+    this.setData({
+      isOpen3: false
+    })
+  },
+  updata3(e) {
+    var that = this;
+    if (e.detail.duration == null) {
+      return;
+    }
+    if (e.detail.duration == e.detail.currentTime) {
+      //播放完毕调用暂停方法
+      that.audioPause3();
+    }
+
+    // console.log((e.detail.currentTime / 100).toFixed(2))
+    let duration = e.detail.duration.toFixed(2) * 100,
+      currentTime = e.detail.currentTime.toFixed(2) * 100;
+    that.setData({
+      duration3: duration,
+      currentTime3: currentTime
+    })
+    console.log('updata3');
+
+
+    that.formatSeconds3(currentTime / 100);
+  },
+  sliderChange3(e) {
+    var that = this
+    that.setData({
+      currentTime3: e.detail.value
+    })
+    that.audioSeek3(e.detail.value)
+  },
+  audioSeek3: function(currentTime) {
+    this.audioCtx3.seek(currentTime / 100)
+  },
+  formatSeconds3(s) {
+    var that = this;
+    var time = Math.floor(s / 60) + "分" + Math.floor(s - Math.floor(s / 60) * 60) + "秒";
+    console.log("1、" + time)
+    that.setData({
+
+      result3: time
+
+    })
+  },
+
+
   funerror: function(u) {
     console.log(u.detail.errMsg);
     var that = this;

@@ -114,6 +114,11 @@ Page({
       that.setData({ flag: true });
       that.setData({ msg: "两次输入密码不一致，请确认" });
     }
+  },
+  back:function(){
+    wx.switchTab({
+      url: '../../index/index',
+    });
   }
 
 })
