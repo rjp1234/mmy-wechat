@@ -25,11 +25,11 @@ App({
       })
 
     } else if ('score' == id) {
-      wx.navigateTo({
+      wx.redirectTo({
         url: '/pages/user/userRankDetail/userRankDetail'
       })
     } else if ('record' == id) {
-      wx.navigateTo({
+      wx.redirectTo({
         url: '/pages/user/pointrecord/pointrecord'
       })
 

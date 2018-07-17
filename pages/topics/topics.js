@@ -21,6 +21,9 @@ Page({
         url: '../index/index'
       })
     }
+  
+  },
+  onLoad: function() {
     this.setData({
       pageNo: 1,
       pageSize: 20,
@@ -29,9 +32,6 @@ Page({
 
     })
     this.getData();
-  },
-  onLoad: function() {
-
   },
 
   onPullDownRefresh: function() {
