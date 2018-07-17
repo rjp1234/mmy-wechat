@@ -6,3 +6,4 @@
   <template  is="nav" data="{{ navList, activeIndex }}"/>
   <template  is="list" data="{{ postsList, hidden }}"/>
 </view>
+<view><image bindtap='refresh' class='refresh' src='/images/icon/refresh.png'></image></view>

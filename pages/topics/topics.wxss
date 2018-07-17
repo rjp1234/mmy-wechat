@@ -39,7 +39,7 @@
   position: relative;
   overflow: hidden;
   padding: 0 30rpx;
-  border-bottom: 5px solid  #eee;
+  border-bottom: 5px solid #eee;
 }
 
 .posts-list-info {
@@ -83,7 +83,6 @@
   text-align: left;
   font-size: 30rpx;
   color: #35495e;
-  
   display: -webkit-box;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -129,7 +128,6 @@
 
 .posts-list .bar-info .bar-info-item2 {
   display: inline-block;
-
   line-height: 66rpx;
 }
 
@@ -161,18 +159,28 @@
 
 .item-bottom {
   font-size: 12px;
-  text-align:center;
+  text-align: center;
   vertical-align: text-bottom;
   margin-bottom: 3px;
-
 }
 
 .item-bottom text {
   margin-right: 5px;
-  color: gray
+  color: gray;
 }
-.listtime{
+
+.listtime {
   text-align: right;
   margin-left: 20px;
+}
 
+.refresh {
+  position: fixed;
+  top: 40px;
+  right: 45%;
+  width: 28px;
+  height: 28px;
+  opacity: 0.7;
+  border-radius: 100%;
+  display: block;
 }

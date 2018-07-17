@@ -33,6 +33,16 @@ Page({
     })
     this.getData();
   },
+  refresh:function(){
+    this.setData({
+      pageNo: 1,
+      pageSize: 20,
+      postsList: [],
+      all: false
+
+    })
+    this.getData();
+  },
 
   onPullDownRefresh: function() {
     this.setData({
@@ -55,11 +65,13 @@ Page({
 
   //获取文章列表数据
   getData: function() {
+    var that = this;
+    
     //获取前，先进行accToken和userId的判断，若为空，跳转登陆页面
     var mUserInfo = wx.getStorageSync("mUserInfo");
     app.globalData.userInfo = mUserInfo;
 
-    var that = this;
+   
 
     if (!mUserInfo) {
       wx.switchTab({
@@ -74,7 +86,11 @@ Page({
       console.log('已经到底了')
       return;
     }
+    that.setData({
 
+      //打开转圈圈
+      hidden: false
+    });
     var dataparam = 'userId=' + mUserInfo.userId + '&accToken=' + mUserInfo.accToken + '&pageNo=' + that.data.pageNo + "&pageSize=" + that.data.pageSize;
     Api.fetchPost(ApiUrl, dataparam, (err, res) => {
 
