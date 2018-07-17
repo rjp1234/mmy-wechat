@@ -41,7 +41,9 @@ Page({
       // 将 lazyLoad 设为 true 后，需要手动初始化图表
       lazyLoad: true
     },
-    modalHidden: true
+    modalHidden: true,
+    chartHidden:false,
+    hidden:false
   },
 
   /**
@@ -169,10 +171,13 @@ Page({
   viewStudio: function(e) {
     var that = this;
     var index = e.dataIndex;
+    
+
     //弹出弹框
     that.setData({
       modalHidden: false,
-      curViewUser: that.data.rankList[index]
+      curViewUser: that.data.rankList[index],
+      chartHidden:true
     })
 
   },
@@ -182,10 +187,11 @@ Page({
     var that = this;
     //停止播放
     that.audioPause1();
-
+   
     //关闭弹框
     that.setData({
-      modalHidden: true
+      modalHidden: true,
+      chartHidden: false
 
     })
 
