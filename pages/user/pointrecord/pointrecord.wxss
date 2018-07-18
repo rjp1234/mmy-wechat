@@ -180,3 +180,15 @@
   
 
 }
+
+.refresh {
+  position: fixed;
+  top: 40px;
+  right: 45%;
+  width: 28px;
+  height: 28px;
+  opacity: 0.7;
+  border-radius: 100%;
+  display: block;
+ 
+}

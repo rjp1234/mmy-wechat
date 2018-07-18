@@ -22,6 +22,15 @@ Page({
   onLoad: function(options) {
     this.getData();
   },
+  refresh: function() {
+  console.log("refresh");
+  var that=this;
+  that.setData({
+    time: "",
+    recordList: []
+  });
+    that.getData();
+  },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
@@ -55,10 +64,10 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function() {
-    var that=this;
+    var that = this;
     that.setData({
-      time:"",
-      recordList:[]
+      time: "",
+      recordList: []
     });
     that.getData();
 
@@ -91,13 +100,13 @@ Page({
       })
     }
     //向服务器发送请求，获取列表
+    that.setData({
+        hidden:false
+
+    })
 
     var ApiUrl = Api.userStudioPointRecordList;
     var recordList = null;
-    if (that.data.all) {
-      console.log('已经到底了')
-      return;
-    }
 
     var dataparam = 'userId=' + mUserInfo.userId + '&accToken=' + mUserInfo.accToken + '&size=' + that.data.size + "&time=" + that.data.time;
     Api.fetchPost(ApiUrl, dataparam, (err, res) => {
@@ -129,7 +138,7 @@ Page({
 
 
   },
-  lower:function(){
+  lower: function() {
     this.getData();
 
 

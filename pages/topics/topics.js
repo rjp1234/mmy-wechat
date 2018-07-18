@@ -21,6 +21,10 @@ Page({
         url: '../index/index'
       })
     }
+  if(!this.data.hidden){
+    this.refresh();
+  }
+
   
   },
   onLoad: function() {
@@ -93,7 +97,7 @@ Page({
     });
     var dataparam = 'userId=' + mUserInfo.userId + '&accToken=' + mUserInfo.accToken + '&pageNo=' + that.data.pageNo + "&pageSize=" + that.data.pageSize;
     Api.fetchPost(ApiUrl, dataparam, (err, res) => {
-
+  
       if (res.code == '0') {
         //请求成功
         lessionList = res.data.lessionList;

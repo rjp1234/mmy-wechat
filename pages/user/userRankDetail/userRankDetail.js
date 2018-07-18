@@ -100,23 +100,19 @@ Page({
       wx.switchTab({
         url: '/pages/index/index'
       })
-    } else {
-      this.setData({
-
-        user: user
-
-      });
+    } 
     }
 
-  },
-
-  onLoad: function(options) {
+  ,
 
 
-  },
   onTapTag: function(e) {
     app.onTapTag(e)
 
+
+  },
+  refresh: function() {
+    this.fetchData();
 
   },
   // 获取数据
@@ -124,7 +120,7 @@ Page({
 
     var that = this;
     that.setData({
-      //隐藏转圈圈
+      //开始转圈圈
       hidden: false
     });
     var ApiUrl = Api.userDetail;
