@@ -28,7 +28,7 @@
       示范录音：
     </view>
     <!--audio start-->
-    <audio src="{{detail.exampleUrl}}" id="myAudio1" bindtimeupdate="updata1"></audio>
+    <audio src="{{detail.exampleUrl}}" id="myAudio1" bindtimeupdate="updata1" bindended='audioPause1'></audio>
     <view class="progress">
       <text>{{result1}}</text>
       <slider bindchange="sliderChange1" step="2" value="{{currentTime1}}" max="{{duration1}}" class="slider" selected-color="#ff5e5e" />
@@ -53,7 +53,7 @@
       老师的话:
     </view>
     <!--audio start-->
-    <audio src="{{detail.tStudioUrl}}" id="myAudio2" bindtimeupdate="updata2"></audio>
+    <audio src="{{detail.tStudioUrl}}" id="myAudio2" bindtimeupdate="updata2" bindended='audioPause2'></audio>
     <view class="progress">
       <text>{{result2}}</text>
       <slider bindchange="sliderChange2" step="2" value="{{currentTime2}}" max="{{duration2}}" class="slider" selected-color="#ff5e5e" />
@@ -84,7 +84,7 @@
     <image class="audioOpen" src="/images/icon/voice2.jpg" bindtap="audioPause3" wx:if="{{isOpen3&&studioSrc.length>0}}" style='width:80px;height:80px' />
     <!--audio start-->
     <view wx:if="{{studioSrc.length>0}}">
-      <audio src="{{studioSrc}}" id="myAudio3" bindtimeupdate="updata3"></audio>
+      <audio src="{{studioSrc}}" id="myAudio3" bindtimeupdate="updata3" bindended='audioPause3'></audio>
       <view class="progress">
         <text>{{result3}}</text>
         <slider bindchange="sliderChange3" step="1" value="{{currentTime3}}" max="{{duration3}}" class="slider" selected-color="#ff5e5e" />

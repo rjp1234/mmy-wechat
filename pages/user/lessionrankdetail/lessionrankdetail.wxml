@@ -30,7 +30,7 @@
       你的录音：
     </view>
     <!--audio start-->
-    <audio src="{{studio.url}}" id="myAudio2" bindtimeupdate="updata2"></audio>
+    <audio src="{{studio.url}}" id="myAudio2" bindtimeupdate="updata2" bindended='audioPause2'></audio>
     <view class="progress">
       <text>{{result2}}</text>
       <slider bindchange="sliderChange2" step="2" value="{{currentTime2}}" max="{{duration2}}" class="slider" selected-color="#ff5e5e" />
@@ -63,7 +63,7 @@
 
   <modal title="{{'第'+curViewUser.ranking+'名：'+curViewUser.userName}}" cancel-text="返回" hidden="{{modalHidden}}" bindcancel="cancel" confirm-text="确认" bindconfirm="cancel">
     <!--audio start-->
-    <audio src="{{curViewUser.studioUrl}}" id="myAudio1" bindtimeupdate="updata1"></audio>
+    <audio src="{{curViewUser.studioUrl}}" id="myAudio1" bindtimeupdate="updata1" bindended='audioPause1'></audio>
     <view class="progress">
       <text>{{result1}}</text>
       <slider bindchange="sliderChange1" step="2" value="{{currentTime1}}" max="{{duration1}}" class="slider" selected-color="#ff5e5e" />

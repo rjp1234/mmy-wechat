@@ -223,7 +223,7 @@ Page({
     var that = this;
     var state = that.data.studioState;
     if (!state) {
-     //stop audio before studioRecord
+      //stop audio before studioRecord
       that.audioPause1();
       that.audioPause2();
       that.audioPause3();
@@ -572,14 +572,18 @@ Page({
   },
   //播放器1 start
   audioPlay1: function() {
-    this.audioCtx1.play()
-    this.setData({
+    var that = this;
+    that.audioCtx1.play();
+    that.setData({
       isOpen1: true
-    })
+    });
+    that.audioPause2();
+    that.audioPause3();
   },
   audioPause1: function() {
-    this.audioCtx1.pause()
-    this.setData({
+    var that = this;
+    that.audioCtx1.pause();
+    that.setData({
       isOpen1: false
     })
   },
@@ -589,16 +593,14 @@ Page({
     if (e.detail.duration == null) {
       return;
     }
-    if (e.detail.duration == e.detail.currentTime) {
-      //播放完毕调用暂停方法
-      that.audioPause1();
-    }
+
     let duration = e.detail.duration.toFixed(2) * 100,
       currentTime = e.detail.currentTime.toFixed(2) * 100;
     that.setData({
       duration1: duration,
       currentTime1: currentTime
     })
+
     console.log('updata1')
     that.formatSeconds1(currentTime / 100);
   },
@@ -624,10 +626,13 @@ Page({
   },
   //播放器2 start
   audioPlay2: function() {
-    this.audioCtx2.play()
-    this.setData({
+    var that=this;
+    that.audioCtx2.play()
+    that.setData({
       isOpen2: true
-    })
+    });
+    that.audioPause3();
+    that.audioPause1();
   },
   audioPause2: function() {
     this.audioCtx2.pause()
@@ -675,10 +680,13 @@ Page({
   },
   //播放器3 start
   audioPlay3: function() {
-    this.audioCtx3.play()
-    this.setData({
+    var that = this;
+    that.audioCtx3.play()
+    that.setData({
       isOpen3: true
-    })
+    });
+    that.audioPause2();
+    that.audioPause1();
   },
   audioPause3: function() {
     this.audioCtx3.pause()

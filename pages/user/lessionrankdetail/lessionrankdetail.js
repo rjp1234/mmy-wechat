@@ -67,12 +67,14 @@ Page({
     this.setData({
       isOpen1: true
     })
+    this.audioPause2();
   },
   audioPause1: function() {
     this.audioCtx1.pause()
     this.setData({
       isOpen1: false
     })
+
   },
   updata1(e) {
     var that = this;
@@ -112,12 +114,14 @@ Page({
     this.setData({
       isOpen2: true
     })
+    this.audioPause1();
   },
   audioPause2: function () {
     this.audioCtx2.pause()
     this.setData({
       isOpen2: false
-    })
+    });
+
   },
   updata2(e) {
     var that = this;
