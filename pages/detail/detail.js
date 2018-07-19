@@ -3,7 +3,7 @@ var Api = require('../../utils/api.js');
 var util = require('../../utils/util.js');
 const app = getApp();
 const recorderManager = wx.getRecorderManager()
-const innerAudioContext = wx.createInnerAudioContext()
+const innerAudioContext = wx.createInnerAudioContext("myAudio3")
 //var tempFilePath = null;
 Page({
   data: {
@@ -96,14 +96,15 @@ Page({
     });
   },
   onLoad: function(options) {
-    this.audioCtx1 = wx.createAudioContext('myAudio1')
-    this.audioCtx2 = wx.createAudioContext('myAudio2')
-    this.audioCtx3 = wx.createAudioContext('myAudio3')
+    var that=this;
+    that.audioCtx1 = wx.createAudioContext('myAudio1')
+    that.audioCtx2 = wx.createAudioContext('myAudio2')
+   
     console.log("onload")
     //navigator 跳转传递的参数传送到这里
-    this.fetchData(options.id);
+    that.fetchData(options.id);
     if (options.id) {
-      this.setData({
+      that.setData({
         lessionId: options.id
       })
     }
@@ -681,7 +682,12 @@ Page({
   //播放器3 start
   audioPlay3: function() {
     var that = this;
-    that.audioCtx3.play()
+    innerAudioContext.src = that.data.studioSrc
+    
+    innerAudioContext.onPlay((res) => {
+      that.updata3(that)
+    });
+    innerAudioContext.play()
     that.setData({
       isOpen3: true
     });
@@ -689,42 +695,52 @@ Page({
     that.audioPause1();
   },
   audioPause3: function() {
-    this.audioCtx3.pause()
+    innerAudioContext.pause()
     this.setData({
       isOpen3: false
     })
   },
-  updata3(e) {
-    var that = this;
-    if (e.detail.duration == null) {
-      return;
-    }
-    if (e.detail.duration == e.detail.currentTime) {
-      //播放完毕调用暂停方法
-      that.audioPause3();
-    }
-
-    // console.log((e.detail.currentTime / 100).toFixed(2))
-    let duration = e.detail.duration.toFixed(2) * 100,
-      currentTime = e.detail.currentTime.toFixed(2) * 100;
-    that.setData({
-      duration3: duration,
-      currentTime3: currentTime
+  updata3(that) {
+    innerAudioContext.onTimeUpdate((res) => {
+      //更新时把当前的值给slide组件里的value值。slide的滑块就能实现同步更新
+      console.log("duratio的值：", innerAudioContext.duration)
+      that.setData({
+        duration3: innerAudioContext.duration.toFixed(2) * 100,
+        currentTime3: innerAudioContext.currentTime.toFixed(2) * 100,
+      })
+      that.formatSeconds3(that.data.currentTime3 / 100);
     })
-    console.log('updata3');
+    //播放到最后一秒
+    if (innerAudioContext.duration.toFixed(2) - innerAudioContext.currentTime.toFixed(2) <= 0) {
+      that.setStopState3(that);
+    
+    }
+    innerAudioContext.onEnded(() => {
+      that.setStopState3(that);
+   
+    })
 
-
-    that.formatSeconds3(currentTime / 100);
+   
+  },
+  setStopState3: function (that) {
+    that.setData({
+      currentTime3: 0
+    })
+    this.audioPause3();
+  
   },
   sliderChange3(e) {
     var that = this
     that.setData({
       currentTime3: e.detail.value
     })
-    that.audioSeek3(e.detail.value)
+    that.innerAudioContext(e.detail.value)
   },
   audioSeek3: function(currentTime) {
-    this.audioCtx3.seek(currentTime / 100)
+    this.innerAudioContext.seek(currentTime / 100);
+    innerAudioContext.onSeeked((res) => {
+      this.updata3(that) //注意这里要继续出发updataTime事件，
+    });
   },
   formatSeconds3(s) {
     var that = this;
