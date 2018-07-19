@@ -73,7 +73,6 @@ Page({
     that.audioPause2();
     that.audioPause3();
 
-
   },
   onShow: function() {
 
@@ -98,7 +97,7 @@ Page({
   onLoad: function(options) {
     this.audioCtx1 = wx.createAudioContext('myAudio1')
     this.audioCtx2 = wx.createAudioContext('myAudio2')
-    this.audioCtx3 = wx.createAudioContext('myAudio3')
+    this.audioCtx3 = wx.createInnerAudioContext('myAudio3')
     console.log("onload")
     //navigator 跳转传递的参数传送到这里
     this.fetchData(options.id);
@@ -304,7 +303,7 @@ Page({
 
         console.log('停止录音', res.tempFilePath)
       })
-
+  this.
     }
   },
   /**
@@ -362,9 +361,6 @@ Page({
             studioSrc: null
           })
 
-
-
-
         } else {
           wx.showModal({
             title: '提示',
@@ -395,10 +391,6 @@ Page({
      * 这里是上传录音文件至远端服务器的方法
      *end
      */
-
-
-
-
 
 
   },
@@ -626,7 +618,7 @@ Page({
   },
   //播放器2 start
   audioPlay2: function() {
-    var that=this;
+    var that = this;
     that.audioCtx2.play()
     that.setData({
       isOpen2: true

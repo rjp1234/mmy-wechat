@@ -8,7 +8,7 @@
     "pages/login/login",
     "pages/index/index",
     "pages/logs/logs",
-    "pages/user/mypage/mypage",
+    
     "pages/user/passwordchange/passwordchange",
     "pages/user/lessionrankdetail/lessionrankdetail"
   ],
