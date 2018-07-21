@@ -1,9 +1,8 @@
-
 <view class="page me">
   <view class="userinfo">
     <image class="userinfo-avatar" src="{{userInfo.image==null?'/images/icon/visit.png':userInfo.image}}" background-size="cover"></image>
     <text class="userinfo-nickname">{{userInfo.nickname}}</text>
-  
+
   </view>
   <navigator url="/pages/login/login" wx:if="{{islogin == false}}">
     <view class="view-cell view-cell-line">
@@ -37,21 +36,21 @@
    </text>
       <text class="about-item-title" wx:elif="{{userInfo.loginname}}">欢迎你，{{userInfo.loginname}}
      </text>
-     <text  class="about-item-title" wx:if="{{userInfo.lastLoginTime!=null}}"> 
+      <text class="about-item-title" wx:if="{{userInfo.lastLoginTime!=null}}"> 
       你最近的登录时间是{{userInfo.lastLoginTime}}</text>
       <text class="about-item-title" wx:if="{{userInfo.phonenum}}">你当前的手机号为{{userInfo.phonenum}}</text>
-      <view class="view-cell view-cell-line" wx:if="{{islogin == true}}">
+      <view class="view-cell view-cell-line" wx:if="{{islogin}}">
+      </view>
+      <view class="view-cell view-cell-line" wx:if="{{islogin }}">
+
         <view class="view-cell-primary">
-          <text class="about-item-title" wx:if="!{{userInfo.phonenum}}">
-        点击绑定手机号</text ></view></view>
-           <view class="view-cell view-cell-line" wx:if="{{islogin == true}}">
-   
-        <view class="view-cell-primary"> <text class="about-item-title" bindtap='changePassword'>点击修改密码</text>
+          <text class="about-item-title" bindtap='changePassword'>点击修改密码</text>
         </view>
       </view>
-          <view class="view-cell view-cell-line" wx:if="{{islogin == true}}">
-   
-        <view class="view-cell-primary"> <text class="about-item-title" bindtap='changePassword' bindtap='logout'>登出</text>
+      <view class="view-cell view-cell-line" wx:if="{{islogin}}">
+
+        <view class="view-cell-primary">
+          <text class="about-item-title" bindtap='changePassword' bindtap='logout'>登出</text>
         </view>
       </view>
     </view>

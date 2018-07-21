@@ -45,7 +45,7 @@
   <view class="detail-post-content">
     <view class="detail-post-title">
       你的榜样---
-      <text style='color:green'>{{detail.frontRunnerName}}</text>
+      <text style='color:green'>{{detail.frontRunnerName?detail.frontRunnerName:'独孤求败'}}</text>
     </view>
   </view>
   <view class="detail-post-content">

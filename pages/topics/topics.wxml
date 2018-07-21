@@ -1,8 +1,31 @@
 <!-- topics.wxml  -->
-<import src="../common/nav.wxml"/>
-<import src="../common/list.wxml"/>
-
-<view class="page topics">
-  <template  is="nav" data="{{ navList, activeIndex }}"/>
-  <template  is="list" data="{{ postsList, hidden }}"/>
+<import src="../common/nav.wxml" />
+<view class="topics">
+  <template is="nav" data="{{ navList, activeIndex }}" />
+  <scroll-view class="scroll-posts-list" scroll-y="true"  bindscrolltolower="lower">
+    <view class="postslist">
+      <block wx:for="{{postsList}}" wx:key="">
+        <view class="posts-list">
+          <navigator url="/pages/detail/detail?id={{item.id}}">
+            <view class="posts-list-info" index="{{index}}">
+              <image class='item-image' src="{{item.image}}" />
+              <view class="item-box">
+                <view class="posts-title">
+                  <text>第{{item.unit}}单元:{{item.name}}</text>
+                </view>
+                <view class="item-bottom">
+                  <text>通关{{item.completeNum}}人</text>
+                  <text class='listtime'>{{item.issueTime}}</text>
+                </view>
+                <image wx:if="{{item.reciteState}}" class="completeImg" src="../../images/icon/complete.jpg"></image>
+              </view>
+            </view>
+          </navigator>
+        </view>
+      </block>
+    </view>
+  </scroll-view>
+  <loading class="loading" hidden="{{hidden}}">
+    <text class="loading-font">加载中...</text>
+  </loading>
 </view>

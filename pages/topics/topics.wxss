@@ -2,6 +2,9 @@
   height: 100%;
   overflow: hidden;
 }
+page{
+  height: 100%
+}
 
 /*导航 nav*/
 
@@ -33,6 +36,8 @@
 .scroll-posts-list {
   overflow: hidden;
   margin-top: 72rpx;
+  white-space:nowrap;
+  height:90%
 }
 
 .posts-list {

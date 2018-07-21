@@ -18,29 +18,27 @@ Page({
     var mUserInfo = wx.getStorageSync("mUserInfo");
     if (!mUserInfo) {
       wx.switchTab({
-        url: '../index/index'
+        url: '/pages/index/index'
       })
     }
-  if(!this.data.hidden){
-    this.refresh();
-  }
-
-  
-  },
-  onLoad: function() {
     this.setData({
       pageNo: 1,
-      pageSize: 20,
+
       postsList: [],
       all: false
 
     })
     this.getData();
+
   },
-  refresh:function(){
+  onLoad: function() {
+    console.log('onload')
+
+  },
+  refresh: function() {
     this.setData({
       pageNo: 1,
-      pageSize: 20,
+
       postsList: [],
       all: false
 
@@ -51,7 +49,7 @@ Page({
   onPullDownRefresh: function() {
     this.setData({
       pageNo: 1,
-      pageSize: 20,
+
       postsList: [],
       all: false
 
@@ -62,20 +60,15 @@ Page({
   },
 
 
-  onReachBottom: function() {
-    this.lower();
-    console.log('上拉刷新', new Date());
-  },
-
   //获取文章列表数据
   getData: function() {
     var that = this;
-    
+
     //获取前，先进行accToken和userId的判断，若为空，跳转登陆页面
     var mUserInfo = wx.getStorageSync("mUserInfo");
     app.globalData.userInfo = mUserInfo;
 
-   
+
 
     if (!mUserInfo) {
       wx.switchTab({
@@ -97,7 +90,7 @@ Page({
     });
     var dataparam = 'userId=' + mUserInfo.userId + '&accToken=' + mUserInfo.accToken + '&pageNo=' + that.data.pageNo + "&pageSize=" + that.data.pageSize;
     Api.fetchPost(ApiUrl, dataparam, (err, res) => {
-  
+
       if (res.code == '0') {
         //请求成功
         lessionList = res.data.lessionList;

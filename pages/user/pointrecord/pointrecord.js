@@ -13,7 +13,8 @@ Page({
     navList: navList,
     size: 20,
     time: '',
-    recordList: []
+    recordList: [],
+    all: false
   },
 
   /**
@@ -23,12 +24,13 @@ Page({
     this.getData();
   },
   refresh: function() {
-  console.log("refresh");
-  var that=this;
-  that.setData({
-    time: "",
-    recordList: []
-  });
+    console.log("refresh");
+    var that = this;
+    that.setData({
+      time: "",
+      recordList: [],
+      all: false
+    });
     that.getData();
   },
 
@@ -99,11 +101,20 @@ Page({
         url: '/pages/index/index'
       })
     }
+   
+    if (that.data.all) {
+      that.setData({
+        hidden: true
+      })
+      console.log("已经到底了");
+      return;
+    }
     //向服务器发送请求，获取列表
     that.setData({
-        hidden:false
+      hidden: false
 
     })
+
 
     var ApiUrl = Api.userStudioPointRecordList;
     var recordList = null;
@@ -112,6 +123,17 @@ Page({
     Api.fetchPost(ApiUrl, dataparam, (err, res) => {
 
       if (res.code == '0') {
+        console.log(res.data.time)
+        if (res.data.time == '') {
+          that.setData({
+            //全部加载完成
+            all: true,
+            hidden: true
+          })
+          return;
+        }
+
+
         //请求成功
         recordList = res.data.recordList;
         recordList = that.data.recordList.concat(recordList);
@@ -139,6 +161,7 @@ Page({
 
   },
   lower: function() {
+    console.log('下拉加载');
     this.getData();
 
 

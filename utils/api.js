@@ -1,6 +1,7 @@
 'use strict';
 // api 路径
-var HOST = 'http://www.mengmengyuan.club:8080/mengmengyuan/';
+//var HOST = 'http://127.0.0.1:8090/mengmengyuan/';
+var HOST ='https://www.mengmengyuan.club/mengmengyuan/';
 //用户模块
 var user_module = 'user';
 var login = HOST + user_module + '/login';
@@ -45,7 +46,7 @@ function fetchPost(url, data, callback) {
         wx.removeStorageSync("mUserInfo");
         getApp().globalData.userInfo=null;
         wx.switchTab({
-          url: '../index/index'
+          url: '/pages/index/index'
         })
           return;
       }

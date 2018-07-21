@@ -197,10 +197,7 @@
   text-align: center;
 }
 
-.image-complete {
-  width: 60px;
-  height: 50px;
-}
+
 
 .audioOpen {
   width: 30px;

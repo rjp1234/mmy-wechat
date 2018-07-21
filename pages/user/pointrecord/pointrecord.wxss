@@ -2,6 +2,9 @@
   height: 100%;
   overflow: hidden;
 }
+page{
+   height: 100%;
+}
 
 /*导航 nav*/
 

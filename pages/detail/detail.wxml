@@ -7,7 +7,7 @@
     <view class="detail-post-info">
       <view class="detail-post-lession-name">
         <text>{{ detail.name}}</text>
-        <image wx:if="{{detail.readState&&detail.reciteState}}" class="image-complete" src='/images/icon/complete.jpg'></image>
+    
       </view>
       <view class="detail-post-time">{{ detail.issueTime }}</view>
     </view>

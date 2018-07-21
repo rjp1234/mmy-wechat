@@ -1,7 +1,7 @@
 <import src="../../common/nav.wxml"/>
 <view class="page topics">
   <template  is="nav" data="{{ navList, activeIndex }}"/>
-   <scroll-view class="scroll-posts-list" scroll-y="true" style="height:100%" bindscrolltolower="lower">
+   <scroll-view class="scroll-posts-list" scroll-y="true" style="height:90%" bindscrolltolower="lower">
     <view class="postslist">
       <block wx:for="{{recordList}}" wx:key="">
         <view class="posts-list">
