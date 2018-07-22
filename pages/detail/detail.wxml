@@ -7,7 +7,7 @@
     <view class="detail-post-info">
       <view class="detail-post-lession-name">
         <text>{{ detail.name}}</text>
-    
+
       </view>
       <view class="detail-post-time">{{ detail.issueTime }}</view>
     </view>
@@ -73,7 +73,7 @@
 
     <button bindtap='viewRanking' class='btn' size="mini" wx:if="{{detail.reciteState}}">查看名次</button>
 
-    <button class='btn'  bindtap='back' size="mini">返回列表</button>
+    <button class='btn' bindtap='back' size="mini" hidden="{{contentHidden}}">返回列表</button>
   </view>
 
 
@@ -104,5 +104,8 @@
 
   <loading hidden="{{hidden}}">
     加载中...
+  </loading>
+  <loading hidden="{{!studioUpload}}">
+    录音提交中
   </loading>
 </page>

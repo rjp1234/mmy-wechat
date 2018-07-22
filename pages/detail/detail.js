@@ -49,7 +49,9 @@ Page({
     voiceState: false, //播放本地录音 false.开始播放。true、结束播放
     modalHidden: true, //确认录音上传的弹窗提示
     type: false, //背诵&朗读 朗读=false 背诵=true
-    speed: 1
+    speed: 1,
+
+    studioUpload:false//录音上传时显示转圈圈
 
   },
   /**
@@ -96,13 +98,11 @@ Page({
   },
   onLoad: function(options) {
 
-    var that=this;
+    var that = this;
     that.audioCtx1 = wx.createAudioContext('myAudio1')
     that.audioCtx2 = wx.createAudioContext('myAudio2')
-   
 
 
-    console.log("onload")
     //navigator 跳转传递的参数传送到这里
     that.fetchData(options.id);
     if (options.id) {
@@ -185,10 +185,17 @@ Page({
    */
   recite: function() {
     var that = this;
+    var studioSrc = wx.getStorageSync("studioSrc" + that.data.detail.id);
+    if (studioSrc) {
+      that.setData({
+        studioSrc: studioSrc
+      })
+    }
+
 
     that.audioPause1();
     that.audioPause2();
-    that.audioPause3();
+
     if (that.data.reciteState) {
       that.setData({
         exampleHidden: true,
@@ -303,11 +310,13 @@ Page({
       recorderManager.onStop((res) => {
         that.setData({
           studioSrc: res.tempFilePath
-        })
+        });
+        //将录音存放在缓存中
+        wx.setStorageSync("studioSrc" + that.data.detail.id, that.data.studioSrc);
 
         console.log('停止录音', res.tempFilePath)
       })
- 
+
     }
   },
   /**
@@ -318,7 +327,10 @@ Page({
     that.setData({
       modalHidden: true
     });
-    console.log("开始上传录音")
+    console.log("开始上传录音");
+    that.setData({
+      studioUpload:true
+    })
     /**
      * 这里是上传录音文件至远端服务器的方法
      * start
@@ -364,6 +376,13 @@ Page({
           that.setData({
             studioSrc: null
           })
+          wx.removeStorage({
+            key: 'studioSrc' + lessionId,
+            success: function(res) {
+              console.log("清理缓存成功" + res)
+
+            },
+          })
 
         } else {
           wx.showModal({
@@ -376,6 +395,9 @@ Page({
           });
         }
         wx.hideToast();
+        that.setData({
+          studioUpload: false
+        })
       },
       fail: function(res) {
         console.log(res);
@@ -470,49 +492,6 @@ Page({
     });
 
 
-  },
-  /**
-   * 播放当前录音
-   */
-  voicePlay: function() {
-    var that = this;
-    if (!that.data.voiceState) {
-      //第一次点击开始播放
-
-      innerAudioContext.autoplay = true
-      innerAudioContext.src = that.data.studioSrc,
-        console.log(innerAudioContext.src)
-      innerAudioContext.onPlay(() => {
-        console.log('开始播放')
-      })
-      innerAudioContext.onError((res) => {
-        console.log(res.errMsg)
-        console.log(res.errCode)
-      })
-
-      console.log('voice set logo');
-      that.setData({
-        //将图标设置成正在播放的样式
-        voice_logo: '/images/icon/voice2.jpg',
-        voiceState: true
-
-      })
-
-    } else {
-      //第二次点击暂停播放
-      wx.stopVoice();
-      console.log('voice set logo')
-      that.setData({
-        //将图标设置成正在播放的样式
-        voice_logo: '/images/icon/voice1.jpg',
-        voiceState: false
-
-      })
-      innerAudioContext.onPause(() => {
-        console.log('结束播放')
-      })
-
-    }
   },
 
 
@@ -676,18 +655,29 @@ Page({
   },
   //播放器3 start
   audioPlay3: function() {
+
+    console.log("audioplay3")
     var that = this;
-    innerAudioContext.src = that.data.studioSrc
-    
-    innerAudioContext.onPlay((res) => {
-      that.updata3(that)
-    });
-    innerAudioContext.play()
+    innerAudioContext.src = that.data.studioSrc;
+    console.log('that.data.studioSrc=' + that.data.studioSrc);
+
+
+
     that.setData({
       isOpen3: true
     });
-    that.audioPause2();
-    that.audioPause1();
+    innerAudioContext.onPlay((res) => {
+      console.log("innerAudioContext.onPlay")
+      that.updata3(that)
+
+    });
+    innerAudioContext.onEnded(() => {
+      that.setStopState3(that);
+
+    })
+
+
+    innerAudioContext.play();
   },
   audioPause3: function() {
     innerAudioContext.pause()
@@ -705,24 +695,16 @@ Page({
       })
       that.formatSeconds3(that.data.currentTime3 / 100);
     })
-    //播放到最后一秒
-    if (innerAudioContext.duration.toFixed(2) - innerAudioContext.currentTime.toFixed(2) <= 0) {
-      that.setStopState3(that);
-    
-    }
-    innerAudioContext.onEnded(() => {
-      that.setStopState3(that);
-   
-    })
+  
 
-   
+
   },
-  setStopState3: function (that) {
+  setStopState3: function(that) {
     that.setData({
       currentTime3: 0
     })
     this.audioPause3();
-  
+
   },
   sliderChange3(e) {
     var that = this;
@@ -730,14 +712,14 @@ Page({
     that.setData({
       currentTime3: curval
     })
-   
+
     that.audioSeek3(curval);
     innerAudioContext.onSeeked((res) => {
       this.updata3(that) //注意这里要继续出发updataTime事件，
     })
   },
   audioSeek3: function(currentTime) {
-    var that=this;
+    var that = this;
     console.log('audioSeek3:currentTime=' + currentTime)
     innerAudioContext.seek(currentTime / 100);
     innerAudioContext.onSeeked((res) => {
