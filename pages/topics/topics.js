@@ -90,7 +90,21 @@ Page({
     });
     var dataparam = 'userId=' + mUserInfo.userId + '&accToken=' + mUserInfo.accToken + '&pageNo=' + that.data.pageNo + "&pageSize=" + that.data.pageSize;
     Api.fetchPost(ApiUrl, dataparam, (err, res) => {
-
+      try {
+        var code = res.code;
+      } catch (e) {
+        wx.showModal({
+          title: '错误',
+          content: '服务端响应出现问题，点击确定重试',
+          success: function(res) {
+            if (res.confirm) {
+              that.getData();
+            } else if (res.cancel) {
+              console.log('用户点击取消')
+            }
+          }
+        })
+      }
       if (res.code == '0') {
         //请求成功
         lessionList = res.data.lessionList;
