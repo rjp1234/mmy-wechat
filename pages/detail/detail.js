@@ -3,7 +3,8 @@ var Api = require('../../utils/api.js');
 var util = require('../../utils/util.js');
 const app = getApp();
 const recorderManager = wx.getRecorderManager()
-const innerAudioContext = wx.createInnerAudioContext("myAudio3")
+const innerAudioContext = wx.createInnerAudioContext("myAudio3");
+var lessionFormUrl = Api.lessionForm;
 //var tempFilePath = null;
 Page({
   data: {
@@ -55,6 +56,25 @@ Page({
 
   },
   /**
+   * 模式切换
+   */
+  moduleChange: function () {
+    var url;
+    var that = this;
+    var mUserInfo = wx.getStorageSync("mUserInfo");
+    if (!mUserInfo) {
+      url = Api.touristLessionForm;
+    } else {
+      url = Api.lessionForm;
+      
+    }
+    lessionFormUrl=url;
+   
+  }
+
+
+  ,
+  /**
    * 生命周期函数--监听页面卸载/
    */
   onUnload: function() {
@@ -77,13 +97,8 @@ Page({
 
   },
   onShow: function() {
+    this.moduleChange();
 
-    var mUserInfo = wx.getStorageSync("mUserInfo");
-    if (!mUserInfo) {
-      wx.switchTab({
-        url: '../index/index'
-      })
-    }
 
   },
   viewRanking: function() {
@@ -102,7 +117,7 @@ Page({
     that.audioCtx1 = wx.createAudioContext('myAudio1')
     that.audioCtx2 = wx.createAudioContext('myAudio2')
 
-
+    that.moduleChange();
     //navigator 跳转传递的参数传送到这里
     that.fetchData(options.id);
     if (options.id) {
@@ -509,7 +524,7 @@ Page({
       //隐藏转圈圈
       hidden: false
     });
-    var ApiUrl = Api.lessionForm;
+  
     console.log(id)
     /**
      * 测试使用
@@ -523,11 +538,8 @@ Page({
     var mUserInfo = wx.getStorageSync("mUserInfo");
     app.globalData.userInfo = mUserInfo;
     if (!mUserInfo) {
-      wx.switchTab({
-        url: '../index/index'
-      })
+     
     }
-
     var dataparam = 'userId=' + mUserInfo.userId + '&accToken=' + mUserInfo.accToken + '&lessionId=' + that.data.lessionId;
     Api.fetchPost(ApiUrl, dataparam, (err, res) => {
 

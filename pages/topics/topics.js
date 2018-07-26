@@ -2,6 +2,7 @@ var Api = require('../../utils/api.js');
 var util = require('../../utils/util.js');
 var app = getApp()
 var navList = app.globalData.navList;
+var lessionListUrl = Api.lessionList;
 
 Page({
   data: {
@@ -14,13 +15,40 @@ Page({
     all: false
 
   },
-  onShow: function() {
-    var mUserInfo = wx.getStorageSync("mUserInfo");
-    if (!mUserInfo) {
-      wx.switchTab({
-        url: '/pages/index/index'
-      })
+  /**
+   * 
+   */
+  moduleChange: function() {
+      var url;
+      var that = this;
+      var mUserInfo = wx.getStorageSync("mUserInfo");
+      if (!mUserInfo) {
+        url = Api.touristLessionList;
+      } else {
+        url = Api.lessionList;
+
+      }
+      if (url != lessionListUrl) {
+
+        //模式切换了
+        lessionListUrl = url;
+        that.setData({
+          pageNo: 1,
+          pageSize: 20,
+          all: false,
+          postsList: []
+        })
+
+      }
     }
+
+
+    ,
+  onShow: function() {
+
+
+
+
     this.setData({
       pageNo: 1,
 
@@ -31,10 +59,7 @@ Page({
     this.getData();
 
   },
-  onLoad: function() {
-    console.log('onload')
 
-  },
   refresh: function() {
     this.setData({
       pageNo: 1,
@@ -44,19 +69,6 @@ Page({
 
     })
     this.getData();
-  },
-
-  onPullDownRefresh: function() {
-    this.setData({
-      pageNo: 1,
-
-      postsList: [],
-      all: false
-
-    })
-
-    this.getData();
-    console.log('下拉刷新', new Date());
   },
 
 
@@ -69,15 +81,10 @@ Page({
     app.globalData.userInfo = mUserInfo;
 
 
-
-    if (!mUserInfo) {
-      wx.switchTab({
-        url: '../index/index'
-      })
-    }
+    that.moduleChange();
     //向服务器发送请求，获取列表
 
-    var ApiUrl = Api.lessionList;
+
     var lessionList = null;
     if (that.data.all) {
       console.log('已经到底了')
@@ -89,7 +96,7 @@ Page({
       hidden: false
     });
     var dataparam = 'userId=' + mUserInfo.userId + '&accToken=' + mUserInfo.accToken + '&pageNo=' + that.data.pageNo + "&pageSize=" + that.data.pageSize;
-    Api.fetchPost(ApiUrl, dataparam, (err, res) => {
+    Api.fetchPost(lessionListUrl, dataparam, (err, res) => {
       try {
         var code = res.code;
       } catch (e) {
