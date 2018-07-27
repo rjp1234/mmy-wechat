@@ -219,6 +219,7 @@ page {
 .loginout-font {
   opacity: 1;
   float: left;
+  margin-left: 5px;
   margin-right: 0px;
   margin-top: 4px;
 }

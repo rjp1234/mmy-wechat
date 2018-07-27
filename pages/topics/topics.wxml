@@ -30,6 +30,6 @@
   </loading>
   <view class='loginout-view'bindtap='jumpToLogin'hidden="{{isLogin}}">
     <image style="z-index:999;" class='loginout-img'src='/images/icon/logout.png'></image>
-    <text class="loginout-font">登录点这里</text>
+    <text class="loginout-font">未登录</text>
   </view>
 </view>

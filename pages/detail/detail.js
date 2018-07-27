@@ -273,6 +273,12 @@ Page({
       that.audioPause2();
       that.audioPause3();
       //开始录音
+      //清空上一轮录音保存
+      that.setData({
+        studioSrc: null
+      });
+      //将录音存放在缓存中
+      wx.removeStorageSync("studioSrc" + that.data.detail.id, that.data.studioSrc);
       that.setData({
         studioState: true,
         studio_logo: '/images/icon/studio2.jpg'
