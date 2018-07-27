@@ -52,28 +52,28 @@ Page({
     type: false, //背诵&朗读 朗读=false 背诵=true
     speed: 1,
 
-    studioUpload:false//录音上传时显示转圈圈
+    studioUpload: false //录音上传时显示转圈圈
 
   },
   /**
    * 模式切换
    */
-  moduleChange: function () {
-    var url;
-    var that = this;
-    var mUserInfo = wx.getStorageSync("mUserInfo");
-    if (!mUserInfo) {
-      url = Api.touristLessionForm;
-    } else {
-      url = Api.lessionForm;
-      
+  moduleChange: function() {
+      var url;
+      var that = this;
+      var mUserInfo = wx.getStorageSync("mUserInfo");
+      if (!mUserInfo) {
+        url = Api.touristLessionForm;
+      } else {
+        url = Api.lessionForm;
+
+      }
+      lessionFormUrl = url;
+
     }
-    lessionFormUrl=url;
-   
-  }
 
 
-  ,
+    ,
   /**
    * 生命周期函数--监听页面卸载/
    */
@@ -200,6 +200,26 @@ Page({
    */
   recite: function() {
     var that = this;
+    var mUserInfo = wx.getStorageSync("mUserInfo");
+    if (!mUserInfo) {
+      //没有用户数据，提醒用户进行登录操作
+      wx.showModal({
+        title: '请登录',
+        content: '使用背诵功能需要你的个人信息以同步你之前的数据，点击确定跳转登录界面',
+        success: function(res) {
+          if (res.confirm) {
+            wx.switchTab({
+              url: '/pages/index/index',
+            });
+          }
+        }
+      })
+      return;
+
+
+    }
+
+
     var studioSrc = wx.getStorageSync("studioSrc" + that.data.detail.id);
     if (studioSrc) {
       that.setData({
@@ -344,7 +364,7 @@ Page({
     });
     console.log("开始上传录音");
     that.setData({
-      studioUpload:true
+      studioUpload: true
     })
     /**
      * 这里是上传录音文件至远端服务器的方法
@@ -524,7 +544,7 @@ Page({
       //隐藏转圈圈
       hidden: false
     });
-  
+
     console.log(id)
     /**
      * 测试使用
@@ -537,11 +557,9 @@ Page({
     console.log(that.data.lessionId)
     var mUserInfo = wx.getStorageSync("mUserInfo");
     app.globalData.userInfo = mUserInfo;
-    if (!mUserInfo) {
-     
-    }
+
     var dataparam = 'userId=' + mUserInfo.userId + '&accToken=' + mUserInfo.accToken + '&lessionId=' + that.data.lessionId;
-    Api.fetchPost(ApiUrl, dataparam, (err, res) => {
+    Api.fetchPost(lessionFormUrl, dataparam, (err, res) => {
 
       if (res.code == '0') {
         //请求成功
@@ -707,7 +725,7 @@ Page({
       })
       that.formatSeconds3(that.data.currentTime3 / 100);
     })
-  
+
 
 
   },

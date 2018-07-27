@@ -21,6 +21,30 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    //该功能需要用到用户数据
+    var that = this;
+    var mUserInfo = wx.getStorageSync("mUserInfo");
+    if (!mUserInfo) {
+      //没有用户数据，提醒用户进行登录操作
+      wx.showModal({
+        title: '请登录',
+        content: '使用该功能需要你的个人信息以同步你之前的数据，点击确定跳转登录界面',
+        success: function (res) {
+          if (res.confirm) {
+            wx.switchTab({
+              url: '/pages/index/index',
+            });
+          } else {
+            //点击取消返回列表
+            wx.switchTab({
+              url: '/pages/topics/topics',
+            });
+          }
+        }
+      })
+      return;
+    }
+
     this.getData();
   },
   refresh: function() {

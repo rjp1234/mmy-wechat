@@ -2,8 +2,9 @@
   height: 100%;
   overflow: hidden;
 }
-page{
-  height: 100%
+
+page {
+  height: 100%;
 }
 
 /*导航 nav*/
@@ -36,8 +37,8 @@ page{
 .scroll-posts-list {
   overflow: hidden;
   margin-top: 72rpx;
-  white-space:nowrap;
-  height:90%
+  white-space: nowrap;
+  height: 90%;
 }
 
 .posts-list {
@@ -188,4 +189,36 @@ page{
   opacity: 0.7;
   border-radius: 100%;
   display: block;
+}
+
+.loginout-img {
+  width: 28px;
+  height: 28px;
+  display: block;
+  float: left;
+  opacity: 0.6;
+  border-radius: 100%;
+  margin-left: 20px;
+}
+
+.loginout-view {
+  width: 150px;
+  height: 50px;
+  position: fixed;
+  right: 0%;
+  bottom: 0%;
+  font-size: 13px;
+  border-radius: 100%;
+  text-align: right;
+  background-color: #FFFACD;
+  padding-top: 20px;
+  opacity: 0.8;
+  padding-left: 10px;
+}
+
+.loginout-font {
+  opacity: 1;
+  float: left;
+  margin-right: 0px;
+  margin-top: 4px;
 }

@@ -2,7 +2,7 @@
 <import src="../common/nav.wxml" />
 <view class="topics">
   <template is="nav" data="{{ navList, activeIndex }}" />
-  <scroll-view class="scroll-posts-list" scroll-y="true"  bindscrolltolower="lower">
+  <scroll-view class="scroll-posts-list" scroll-y="true" bindscrolltolower="lower">
     <view class="postslist">
       <block wx:for="{{postsList}}" wx:key="">
         <view class="posts-list">
@@ -28,4 +28,8 @@
   <loading class="loading" hidden="{{hidden}}">
     <text class="loading-font">加载中...</text>
   </loading>
+  <view class='loginout-view'bindtap='jumpToLogin'hidden="{{isLogin}}">
+    <image style="z-index:999;" class='loginout-img'src='/images/icon/logout.png'></image>
+    <text class="loginout-font">登录点这里</text>
+  </view>
 </view>

@@ -12,7 +12,8 @@ Page({
     hidden: false,
     pageNo: 1,
     pageSize: 20,
-    all: false
+    all: false,
+    isLogin:false
 
   },
   /**
@@ -24,8 +25,17 @@ Page({
       var mUserInfo = wx.getStorageSync("mUserInfo");
       if (!mUserInfo) {
         url = Api.touristLessionList;
+        //提示登录
+        that.setData({
+          isLogin:false
+        })
+
       } else {
         url = Api.lessionList;
+        //关闭登录提示
+        that.setData({
+          isLogin: true
+        })
 
       }
       if (url != lessionListUrl) {
@@ -116,7 +126,7 @@ Page({
         //请求成功
         lessionList = res.data.lessionList;
         lessionList = that.data.postsList.concat(lessionList);
-        console.log(lessionList)
+
         that.setData({
           postsList: lessionList,
           //隐藏转圈圈
@@ -154,6 +164,12 @@ Page({
   lower: function() {
     console.log('滑动底部加载', new Date());
     this.getData();
-  }
+  },
+  jumpToLogin: function() {
+      wx.switchTab({
+        url: '/pages/index/index',
+      })
 
+
+  }
 })

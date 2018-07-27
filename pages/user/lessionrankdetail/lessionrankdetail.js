@@ -42,14 +42,15 @@ Page({
       lazyLoad: true
     },
     modalHidden: true,
-    chartHidden:false,
-    hidden:false
+    chartHidden: false,
+    hidden: false
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    
     this.audioCtx1 = wx.createAudioContext('myAudio1');
     this.audioCtx2 = wx.createAudioContext('myAudio2');
     console.log(options)
@@ -109,14 +110,14 @@ Page({
     })
   },
   //播放器2 start
-  audioPlay2: function () {
+  audioPlay2: function() {
     this.audioCtx2.play()
     this.setData({
       isOpen2: true
     })
     this.audioPause1();
   },
-  audioPause2: function () {
+  audioPause2: function() {
     this.audioCtx2.pause()
     this.setData({
       isOpen2: false
@@ -141,7 +142,7 @@ Page({
     })
     that.audioSeek2(e.detail.value)
   },
-  audioSeek2: function (currentTime) {
+  audioSeek2: function(currentTime) {
     this.audioCtx2.seek(currentTime / 100)
   },
   formatSeconds2(s) {
@@ -158,7 +159,7 @@ Page({
    * end
    */
 
- 
+
 
   /**
    * 生命周期函数--监听页面初次渲染完成
@@ -175,13 +176,13 @@ Page({
   viewStudio: function(e) {
     var that = this;
     var index = e.dataIndex;
-    
+
 
     //弹出弹框
     that.setData({
       modalHidden: false,
       curViewUser: that.data.rankList[index],
-      chartHidden:true
+      chartHidden: true
     })
 
   },
@@ -191,7 +192,7 @@ Page({
     var that = this;
     //停止播放
     that.audioPause1();
-   
+
     //关闭弹框
     that.setData({
       modalHidden: true,
