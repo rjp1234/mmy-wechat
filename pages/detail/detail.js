@@ -707,6 +707,21 @@ Page({
       that.updata3(that)
 
     });
+    innerAudioContext.onError((res) => {
+      wx.showModal({
+        title: '出错啦',
+        content: '录音文件不知去哪里了',
+        success: function (res) {
+          
+          that.data.setData({
+            studioSrc:null
+          })
+          wx.removeStorageSync("studioSrc" + that.data.detail.id, that.data.studioSrc);
+          }
+        }
+      )
+
+    })
     innerAudioContext.onEnded(() => {
       that.setStopState3(that);
 

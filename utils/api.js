@@ -2,7 +2,7 @@
 // api 路径
 //var HOST = 'http://127.0.0.1:8090/mengmengyuan/';
 //var HOST ='https://www.mengmengyuan.club/mengmengyuan/';
-var HOST = 'https://123.207.146.145/mengmengyuan/' ;
+var HOST = 'http://123.207.146.145:8080/mengmengyuan/' ;
 //用户模块
 var user_module = 'user';
 var login = HOST + user_module + '/login';

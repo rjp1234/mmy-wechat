@@ -155,6 +155,46 @@ Page({
 
 
     var dataparam = 'userId=' + mUserInfo.userId + '&accToken=' + mUserInfo.accToken;
+    /**
+    * 这里新增超时处理的方法 start
+    */
+
+    setTimeout(function () {
+      var hidden = that.data.hidden
+      if (hidden) {
+        //加载窗口已经被隐藏
+        return;
+
+      }
+      //加载窗口还未隐藏
+
+      that.setData({
+        hidden: true
+      });
+      //弹出超时窗口
+      wx.showModal({
+        title: '请求超时',
+        confirmText: '刷新',
+        cancelText: "返回首页",
+        content: '服务器貌似失去了链接',
+        success: function (res) {
+          if (res.confirm) {
+            that.fetchData();
+          } else {
+            //点击取消返回列表
+            wx.switchTab({
+              url: '/pages/topics/topics',
+            });
+
+          }
+        }
+      })
+    },
+      20000);
+
+    /**
+     * 这里新增超时处理的方法 end
+     */
     Api.fetchPost(ApiUrl, dataparam, (err, res) => {
 
       if (res.code == '0') {
