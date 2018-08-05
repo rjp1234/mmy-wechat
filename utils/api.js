@@ -2,7 +2,7 @@
 // api 路径
 //var HOST = 'http://127.0.0.1:8090/mengmengyuan/';
 //var HOST ='https://www.mengmengyuan.club/mengmengyuan/';
-var HOST = 'http://123.207.146.145:8080/mengmengyuan/' ;
+var HOST = 'http://123.207.146.145:8080/mengmengyuan/';
 //用户模块
 var user_module = 'user';
 var login = HOST + user_module + '/login';
@@ -36,6 +36,28 @@ function fetchPost(url, data, callback) {
       if (res.data.code == '0004' || res.data.code == '0007') {
         //用户令牌失效
         wx.removeStorageSync("mUserInfo");
+
+        //弹出失效窗口
+        wx.showModal({
+          title: '登陆失效',
+          confirmText: '前往登陆',
+          cancelText: "返回列表",
+          content: '你的登陆信息丢失了！',
+          success: function(res) {
+            if (res.confirm) {
+              wx.switchTab({
+                url: '/pages/index/index',
+              });
+
+            } else {
+              //点击取消返回列表
+              wx.switchTab({
+                url: '/pages/topics/topics',
+              });
+
+            }
+          }
+        })
       }
       callback(null, res.data)
     },

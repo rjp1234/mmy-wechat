@@ -196,7 +196,7 @@ Page({
      * 这里新增超时处理的方法 end
      */
     Api.fetchPost(ApiUrl, dataparam, (err, res) => {
-
+      console.log(res);
       if (res.code == '0') {
         //请求成功
         var detail = res.data.userDetail;
