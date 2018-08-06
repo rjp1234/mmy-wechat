@@ -30,7 +30,8 @@ Page({
   },
   formSubmit: function() {
     var that=this;
-
+    var pas1=that.data.password1;
+    var pas2=that.data.password2;
     if (that.data.flag && that.data.passCheckFlag) {
 
 
@@ -65,6 +66,15 @@ Page({
         wx.switchTab({
           url: '../../index/index',
         });
+        wx.showToast({
+          title: '修改成功',
+          icon: 'succes',
+          duration: 2000,
+          mask: true
+        })
+      
+
+
 
       }
     })

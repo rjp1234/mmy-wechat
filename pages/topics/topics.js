@@ -13,7 +13,7 @@ Page({
     pageNo: 1,
     pageSize: 20,
     all: false,
-    isLogin:false
+    isLogin: false
 
   },
   /**
@@ -27,7 +27,7 @@ Page({
         url = Api.touristLessionList;
         //提示登录
         that.setData({
-          isLogin:false
+          isLogin: false
         })
 
       } else {
@@ -105,7 +105,12 @@ Page({
       //打开转圈圈
       hidden: false
     });
-    var dataparam = 'userId=' + mUserInfo.userId + '&accToken=' + mUserInfo.accToken + '&pageNo=' + that.data.pageNo + "&pageSize=" + that.data.pageSize;
+    var dataparam="";
+    if (mUserInfo) {
+      dataparam = 'userId=' + mUserInfo.userId + '&accToken=' + mUserInfo.accToken + '&pageNo=' + that.data.pageNo + "&pageSize=" + that.data.pageSize;
+    }else{
+      dataparam = that.data.pageNo + "&pageSize=" + that.data.pageSize;
+    }
     Api.fetchPost(lessionListUrl, dataparam, (err, res) => {
       try {
         var code = res.code;
@@ -166,9 +171,9 @@ Page({
     this.getData();
   },
   jumpToLogin: function() {
-      wx.switchTab({
-        url: '/pages/index/index',
-      })
+    wx.switchTab({
+      url: '/pages/index/index',
+    })
 
 
   }

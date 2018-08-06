@@ -239,7 +239,7 @@ Page({
         tStudioHidden: true,
         readHidden: true,
         studioHidden: false,
-        recite: "背诵模式结束",
+        recite: "完成",
         reciteState: false,
         type: true
       })
@@ -320,6 +320,18 @@ Page({
       //错误回调
       recorderManager.onError((res) => {
         console.log(res);
+        wx.showModal({
+          title: '失败',
+          content: "录音失败，请检查网络及麦克风是否正常",
+          confirmText: '重试',
+          cancelText: "取消",
+          success: function(res) {
+            if (res.confirm) {
+              that.studioRecord();
+            }
+          }
+        });
+
       })
 
 
@@ -399,17 +411,35 @@ Page({
         'content-type': 'multipart/form-data'
       },
       success: function(res) {
+        that.setData({
+          studioUpload: false
+        })
         var str = res.data;
         var data = JSON.parse(str);
         if (data.code == '0') {
           console.log('上传成功');
+
+
           //如果之前有一次成功完成的记录，那么算上本次就全部完成了
           //if (that.data.detail.readState || that.data.detail.reciteState) {
           //弹出选择，留在本页还是跳转列表页面
-          that.setData({
-            completeHidden: false
-          })
+
           //  }
+          wx.showToast({
+            title: '提交成功',
+            icon: 'succes',
+            duration: 1500,
+            mask: true
+          })
+
+          setTimeout(function() {
+              that.setData({
+                completeHidden: false
+              })
+            },
+            1500);
+
+
           console.log("that.data.lesssionId" + lessionId)
           //上传录音伴随着状态改变，需要重新加载页面
           that.fetchData(lessionId);
@@ -426,22 +456,18 @@ Page({
           })
 
         } else {
-          wx.showModal({
-            title: '提示',
-            content: data.message,
-            showCancel: false,
-            success: function(res) {
 
-            }
-          });
         }
-        wx.hideToast();
+
         that.setData({
           studioUpload: false
         })
       },
       fail: function(res) {
         console.log(res);
+        that.setData({
+          studioUpload:false
+        })
         wx.showModal({
           title: '提示',
           content: "网络请求失败，请确保网络是否正常",
@@ -450,7 +476,7 @@ Page({
 
           }
         });
-        wx.hideToast();
+       
       }
     });
 
@@ -711,15 +737,14 @@ Page({
       wx.showModal({
         title: '出错啦',
         content: '录音文件不知去哪里了',
-        success: function (res) {
-           
+        success: function(res) {
+
           that.setData({
-            studioSrc:null
+            studioSrc: null
           })
           wx.removeStorageSync("studioSrc" + that.data.detail.id, that.data.studioSrc);
-          }
         }
-      )
+      })
 
     })
     innerAudioContext.onEnded(() => {
