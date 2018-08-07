@@ -10,8 +10,8 @@ Page({
   data: {
     userInfo: {},
     flag: false,
-    msg: "",
-    msgColor: "red",
+    msg: "请输入密码",
+    msgColor: "green",
     password1: "",
     passCheckFlag: false,
     password2: ""
@@ -85,8 +85,9 @@ Page({
    */
   passwordInput: function(e) {
     var that = this;
-    console.log(e)
+ 
     var password = e.detail.value;
+    console.log(password)
     var target = e.target.id;
     that.setData({
       passCheckFlag: false
@@ -101,12 +102,12 @@ Page({
       /**
        *第一段密码的合法性校验 
        */
-
-      if (password && password.length < 6) {
+      console.log(password.length)
+      if (password.length < 6) {
         that.setData({
           msg: "密码不得小于六位",
           msgColor: "red",
-
+          flag:false
         });
         return;
       } else {

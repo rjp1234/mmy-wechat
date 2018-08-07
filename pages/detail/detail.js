@@ -326,9 +326,9 @@ Page({
           confirmText: '重试',
           cancelText: "取消",
           success: function(res) {
-            if (res.confirm) {
+           
               that.studioRecord();
-            }
+            
           }
         });
 
