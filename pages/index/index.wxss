@@ -1,8 +1,10 @@
 /**index.wxss**/
-.me{
+
+.me {
   height: 100%;
 }
-.userinfo{
+
+.userinfo {
   position: relative;
   width: 750rpx;
   height: 320rpx;
@@ -12,6 +14,7 @@
   flex-direction: column;
   align-items: center;
 }
+
 .userinfo-avatar {
   display: block;
   width: 160rpx;
@@ -26,27 +29,56 @@
   font-size: 28rpx;
 }
 
-.usermotto{
+.usermotto {
   margin-top: 10rpx;
 }
 
-
-
-.about-item{
-  padding:10rpx 30rpx;
-}
-.about-item-title{
+.about-item-title {
+  margin-left: 15px;
   display: block;
   font-size: 32rpx;
   line-height: 60rpx;
 }
-.about-item-content{
+
+.about-item-content {
   margin-top: 10rpx;
   display: block;
   text-indent: 40rpx;
 }
 
-.link{
+.link {
   color: #80bd01;
   text-decoration: underline;
+}
+
+.cell-image {
+  float: left;
+  width: 10%;
+  height: 90%;
+  margin-right: 5px;
+  border-radius: 50%;
+  text-align: center;
+}
+
+.welcomeimg {
+  width: 40px;
+  height: 40px;
+  margin-right: 5px;
+  display: block;
+  float: left;
+}
+
+.about-item {
+  padding: 10rpx 30rpx;
+  overflow: hidden;
+}
+
+.view-cell-primary {
+  height: 30px;
+  display: table-cell;
+  vertical-align: middle;
+}
+.login-button{
+  font-size: 28rpx;
+
 }

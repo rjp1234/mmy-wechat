@@ -1,12 +1,13 @@
 {
   
   "pages": [
+    "pages/index/index",
     "pages/topics/topics",
     "pages/user/pointrecord/pointrecord",
     "pages/user/userRankDetail/userRankDetail",
     "pages/detail/detail",
     "pages/login/login",
-    "pages/index/index",
+   
     "pages/logs/logs",
     
     "pages/user/passwordchange/passwordchange",

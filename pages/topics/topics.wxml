@@ -11,7 +11,8 @@
               <image class='item-image' src="{{item.image}}" />
               <view class="item-box">
                 <view class="posts-title">
-                  <text>第{{item.unit}}单元:{{item.name}}</text>
+                 <!-- <text>第{{item.unit}}单元:{{item.name}}</text>-->
+                 <text>{{item.name}}</text>
                 </view>
                 <view class="item-bottom">
                   <text>通关{{item.completeNum}}人</text>

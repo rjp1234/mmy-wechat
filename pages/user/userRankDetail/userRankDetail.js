@@ -5,7 +5,7 @@ var util = require('../../../utils/util.js');
 const app = getApp();
 const recorderManager = wx.getRecorderManager()
 const innerAudioContext = wx.createInnerAudioContext()
-//var tempFilePath = null;
+
 var navList = app.globalData.navList;
 
 function setOption(chart, detail) {
